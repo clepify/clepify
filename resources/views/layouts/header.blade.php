@@ -29,10 +29,14 @@
                     <a class="dropdown-item" href="#">
                         <i class="bi-person me-2"></i> Profile
                     </a>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="#"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="bi-box-arrow-right me-2"></i>
                         Logout
                     </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
             </li>
         </ul>
@@ -41,12 +45,6 @@
     <div class="container-fluid">
         <nav aria-label="breadcrumb">
             @yield('breadcrumb')
-            {{-- <ol class="breadcrumb my-0 ms-2">
-                <li class="breadcrumb-item">
-                    <!-- if breadcrumb is single--><span>Home</span>
-                </li>
-                <li class="breadcrumb-item active"><span>Dashboard</span></li>
-            </ol> --}}
         </nav>
     </div>
 </header>

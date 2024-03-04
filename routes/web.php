@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->name('dashboard');
-
 Route::get('/letters', function () {
     return view('dashboard');
 })->name('letters');
@@ -24,3 +21,11 @@ Route::get('/letters', function () {
 Route::get('/archives', function () {
     return view('dashboard');
 })->name('archives');
+
+Auth::routes();
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
