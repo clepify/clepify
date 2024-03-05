@@ -14,18 +14,22 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/letters', function () {
-  return view('letters.index');
-})->name('letters');
-
-Route::get('/archives', function () {
-  return view('archives.index');
-})->middleware('role:admin,lecturer')->name('archives');
-
 Auth::routes(['register' => false]);
 
 Route::group(['middleware' => 'auth'], function () {
   Route::get('/', function () {
     return view('dashboard');
   })->name('dashboard');
+
+  Route::get('/letters', function () {
+    return view('letters.index');
+  })->name('letters');
+
+  Route::get('/archives', function () {
+    return view('archives.index');
+  })->middleware('role:admin,lecturer')->name('archives');
+});
+
+Route::fallback(function () {
+  return redirect()->route('dashboard');
 });
