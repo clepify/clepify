@@ -9,6 +9,19 @@
 @endsection
 
 @section('content')
+  @role('student')
+    <div class="alert alert-success" role="alert">
+      <h4 class="alert-heading">Welcome</h4>
+      <p>
+        This is your dashboard. You can send a letter to your lecturer from here.
+      </p>
+      <hr>
+      <a href="{{ route('letters') }}" class="btn btn-primary">
+        <i class="bi bi-send"></i>
+        Send letter
+      </a>
+    </div>
+  @endrole
   @role('admin')
     <div class="container-lg">
       <div class="row">
