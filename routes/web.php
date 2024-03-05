@@ -22,7 +22,7 @@ Route::get('/archives', function () {
     return view('dashboard');
 })->name('archives');
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', function () {
