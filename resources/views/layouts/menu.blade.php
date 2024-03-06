@@ -7,7 +7,7 @@
     </a>
   </li>
   <li class="nav-item">
-    <a class="nav-link {{ request()->routeIs('letters') ? 'active' : '' }}" href="{{ route('letters') }}">
+    <a class="nav-link {{ request()->routeIs('letters.index') ? 'active' : '' }}" href="{{ route('letters.index') }}">
       <span class="nav-icon">
         <i class="bi bi-file-earmark"></i>
       </span> Letters

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LetterController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,15 +22,13 @@ Route::group(['middleware' => 'auth'], function () {
     return view('dashboard');
   })->name('dashboard');
 
-  Route::get('/letters', function () {
-    return view('letters.index');
-  })->name('letters');
+  Route::resource('letters', LetterController::class);
 
   Route::get('/archives', function () {
     return view('archives.index');
   })->middleware('role:admin,lecturer')->name('archives');
 });
 
-Route::fallback(function () {
-  return redirect()->route('dashboard');
-});
+// Route::fallback(function () {
+//   return redirect()->route('dashboard');
+// });

@@ -6,7 +6,7 @@
     </p>
     <hr>
     <div class="d-grid col-sm-4 col-xl-3">
-      <a href="{{ route('letters') }}" class="btn btn-primary">
+      <a href="{{ route('letters.create') }}" class="btn btn-primary">
         <i class="bi bi-file-earmark-arrow-up"></i>
         Upload Letter
       </a>
