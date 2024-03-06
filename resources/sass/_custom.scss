@@ -1,36 +1,40 @@
 .wrapper {
-    width: 100%;
-    @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
-    will-change: auto;
-    @include transition(padding 0.15s);
+  width: 100%;
+  @include ltr-rtl("padding-left", var(--cui-sidebar-occupy-start, 0));
+  will-change: auto;
+  @include transition(padding 0.15s);
 }
 
 .sidebar-nav {
-    overflow-y: auto;
+  overflow-y: auto;
 }
 
 .sidebar-nav:active::-webkit-scrollbar-thumb,
 .sidebar-nav:focus::-webkit-scrollbar-thumb,
 .sidebar-nav:hover::-webkit-scrollbar-thumb {
-    visibility: visible;
+  visibility: visible;
 }
 .sidebar-nav::-webkit-scrollbar-thumb {
-    background-color: $dark;
-    visibility: hidden;
+  background-color: $dark;
+  visibility: hidden;
 }
 
 .sidebar-nav::-webkit-scrollbar {
-    width: 0.5rem;
+  width: 0.5rem;
 }
 
 .sidebar-nav .nav-icon {
-    height: 2rem !important;
+  height: 2rem !important;
 }
 
 .sidebar-nav .nav-title {
-    margin: 0;
+  margin: 0;
+}
+
+.sidebar-nav .nav-link {
+  padding: 0.5rem 1rem;
 }
 
 .sidebar-nav .nav-link.active {
-    background-color: $dark;
+  background-color: $dark;
 }

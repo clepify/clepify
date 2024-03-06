@@ -12,4 +12,12 @@
       </a>
     </div>
   </div>
+  <div class="card">
+    <div class="card-header">
+      <span class="fs-5">My Letters</span>
+    </div>
+    <div class="card-body">
+      <livewire:letter-table />
+    </div>
+  </div>
 @endrole
