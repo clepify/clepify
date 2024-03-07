@@ -17,7 +17,7 @@
       <span class="fs-5">My Letters</span>
     </div>
     <div class="card-body">
-      <livewire:letter-table />
+      <livewire:my-letter-table />
     </div>
   </div>
 @endrole

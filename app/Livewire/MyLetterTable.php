@@ -16,18 +16,22 @@ use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 
-final class LetterTable extends PowerGridComponent
+final class MyLetterTable extends PowerGridComponent
 {
   use WithExport;
+  public string $sortField = 'created_at';
+  public string $sortDirection = 'desc';
 
   public function setUp(): array
   {
     return [];
   }
 
+
   public function datasource(): Builder
   {
-    return Letter::query();
+    $user = auth()->user();
+    return Letter::query()->where('student_id', $user->id);
   }
 
   public function relationSearch(): array
@@ -38,27 +42,22 @@ final class LetterTable extends PowerGridComponent
   public function fields(): PowerGridFields
   {
     return PowerGrid::fields()
-      ->add('id')
-      ->add('student_id')
-      // ->add('date_sent_formatted', fn (Letter $model) => Carbon::parse($model->date_sent)->format('d/m/Y H:i:s'))
-      ->add('duration')
+      ->add('date_sent_formatted', fn (Letter $model) => Carbon::parse($model->date_sent)->format('d F Y'))
+      ->add('duration_formatted', fn (Letter $model) => $model->duration . ' ' . ($model->duration == 1 ? 'Day' : 'Days'))
       ->add('type')
       ->add('category')
-      ->add('status')
-      ->add('letter_document')
-      ->add('support_document')
-      ->add('created_at');
+      ->add('status_formatted', fn (Letter $model) => view('components.status', [
+        'status' => $model->status
+      ])->render());
   }
 
   public function columns(): array
   {
     return [
-      Column::make('Id', 'id'),
-      Column::make('Student id', 'student_id'),
-      // Column::make('Date sent', 'date_sent_formatted', 'date_sent')
-      //   ->sortable(),
+      Column::make('Date sent', 'date_sent_formatted', 'date_sent')
+        ->sortable(),
 
-      Column::make('Duration', 'duration')
+      Column::make('Duration', 'duration_formatted', 'duration')
         ->sortable()
         ->searchable(),
 
@@ -70,7 +69,8 @@ final class LetterTable extends PowerGridComponent
         ->sortable()
         ->searchable(),
 
-      Column::make('Status', 'status')
+      Column::make('Status', 'status_formatted', 'status')
+        ->contentClasses('text-center')
         ->sortable()
         ->searchable(),
 
@@ -86,19 +86,19 @@ final class LetterTable extends PowerGridComponent
       //   ->sortable()
       //   ->searchable(),
 
-      Column::action('Action')
+      Column::action('Action')->contentClasses('text-center')
     ];
   }
 
   public function filters(): array
   {
     return [
-      Filter::datetimepicker('date_sent'),
+      // Filter::datetimepicker('date_sent'),
     ];
   }
 
-  #[\Livewire\Attributes\On('edit')]
-  public function edit($rowId): void
+  #[\Livewire\Attributes\On('view')]
+  public function view($rowId): void
   {
     $this->js('alert(' . $rowId . ')');
   }
@@ -106,11 +106,11 @@ final class LetterTable extends PowerGridComponent
   public function actions(Letter $row): array
   {
     return [
-      Button::add('edit')
-        ->slot('Edit: ' . $row->id)
+      Button::add('view')
+        ->slot('View')
         ->id()
-        ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-        ->dispatch('edit', ['rowId' => $row->id])
+        ->class('btn btn-primary btn-sm')
+        ->dispatch('view', ['rowId' => $row->id])
     ];
   }
 
