@@ -8,9 +8,12 @@
       <div class="row">
         <div class="col-12">
           <div class="mb-4">
-            <h3 class="text-center">
-              <b>Login</b>
-            </h3>
+            <div class="text-center">
+              <img src="{{ asset('/images/CLEPify.svg') }}" alt="CLEPify Logo" width="160">
+              <p class="fs-5 mt-2">
+                Login to your account
+              </p>
+            </div>
             @if ($errors->any())
               @foreach ($errors->all() as $error)
                 <div class="alert alert-danger mt-3" role="alert">
@@ -59,7 +62,7 @@
           <div class="d-flex gap-md-4 flex-column flex-md-row justify-content-md-between gap-2">
             @if (Route::has('password.request'))
               <a class="btn btn-link" href="{{ route('password.request') }}">
-                {{ __('Forgot Your Password?') }}
+                Forgot Your Password?
               </a>
             @endif
           </div>

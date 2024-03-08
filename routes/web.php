@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LetterController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -18,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['register' => false]);
 
 Route::group(['middleware' => 'auth'], function () {
-  Route::get('/', function () {
-    return view('dashboard');
-  })->name('dashboard');
+  Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
   Route::resource('letters', LetterController::class);
 

@@ -4,7 +4,7 @@
       <b>CLEP</b>ify
     </span>
     <span class="sidebar-brand-narrow">
-      <img src="/images/Polinema.png" alt="Logo Polinema" width="46" height="46">
+      <img src="/images/POLINEMA.png" alt="POLINEMA Logo" width="46" height="46">
     </span>
   </div>
   @include('layouts.menu')

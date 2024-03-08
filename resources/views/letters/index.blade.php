@@ -10,7 +10,12 @@
 @endsection
 
 @section('content')
-  <div class="alert alert-primary" role="alert">
-    This is letters page.
+  <div class="card">
+    <div class="card-header">
+      <span class="fs-5">My Letters</span>
+    </div>
+    <div class="card-body">
+      <livewire:letter-table />
+    </div>
   </div>
 @endsection
