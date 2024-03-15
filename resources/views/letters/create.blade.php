@@ -31,7 +31,7 @@
       <div class="card">
         <div class="card-header">Upload Letter</div>
         <div class="card-body">
-          <form action="{{ route('letters.store') }}" method="post" enctype="multipart/form-data">
+          <form id="letter-form" action="{{ route('letters.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
               <div class="col-12 col-lg-6 pe-lg-0 mb-3">
@@ -92,11 +92,9 @@
               <div class="col-12 mb-3">
                 <label for="lecturer" class="form-label">Lecturer(s)</label>
                 <select class="form-select" id="lecturer" name="lecturer[]" multiple required>
-                  <option>Christmas Island</option>
-                  <option>South Sudan</option>
-                  <option>Jamaica</option>
-                  <option>Kenya</option>
-                  <option>French Guiana</option>
+                  @foreach ($lecturers as $lecturer)
+                    <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
+                  @endforeach
                 </select>
               </div>
               <div class="col-12 mb-3">
@@ -154,6 +152,15 @@
           category.append(option);
         });
       }
+    });
+
+    const letterForm = document.querySelector('#letter-form');
+    const letterButton = letterForm.querySelector('button[type="submit"]');
+
+    letterForm.addEventListener('submit', function() {
+      letterButton.innerHTML =
+        '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Uploading...';
+      letterButton.disabled = true;
     });
   </script>
 @endpush

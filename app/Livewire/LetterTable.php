@@ -24,7 +24,15 @@ final class LetterTable extends PowerGridComponent
 
   public function setUp(): array
   {
-    return [];
+    return [
+      Header::make()
+        ->includeViewOnTop('components.letter-table')
+        ->showSearchInput(),
+
+      Footer::make()
+        ->showPerPage()
+        ->showRecordCount(),
+    ];
   }
 
 
@@ -44,14 +52,18 @@ final class LetterTable extends PowerGridComponent
     return PowerGrid::fields()
       ->add('date_sent_formatted', fn (Letter $model) => Carbon::parse($model->date_sent)->format('d F Y'))
       ->add('duration_formatted', fn (Letter $model) => $model->duration . ' ' . ($model->duration == 1 ? 'Day' : 'Days'))
+      ->add('lecturer_formatted', fn (Letter $model) => 'Nama Dosen PhD')
       ->add('type')
       ->add('category')
       ->add('status_formatted', fn (Letter $model) => view('components.status', [
         'status' => $model->status
-      ])->render())
-      ->add('action_formatted', fn (Letter $model) => view('components.action', [
-        'id' => $model->id
-      ])->render());
+      ]))
+      ->add('letter_formatted', fn (Letter $model) => view('components.letter-view', [
+        'id' => $model->letter_document
+      ]))
+      ->add('support_formatted', fn (Letter $model) => view('components.support-view', [
+        'id' => $model->support_document
+      ]));
   }
 
   public function columns(): array
@@ -64,6 +76,10 @@ final class LetterTable extends PowerGridComponent
         ->sortable()
         ->searchable(),
 
+      Column::make('Lecturer(s)', 'lecturer_formatted')
+        ->sortable()
+        ->searchable(),
+
       Column::make('Type', 'type')
         ->sortable()
         ->searchable(),
@@ -73,11 +89,15 @@ final class LetterTable extends PowerGridComponent
         ->searchable(),
 
       Column::make('Status', 'status_formatted', 'status')
+        ->headerAttribute('text-center')
         ->contentClasses('text-center')
-        ->sortable()
         ->searchable(),
 
-      Column::make('Action', 'action_formatted', 'id')
+      Column::make('Letter', 'letter_formatted', 'id')
+        ->headerAttribute('text-center')
+        ->contentClasses('text-center'),
+
+      Column::make('Support', 'support_formatted', 'id')
         ->headerAttribute('text-center')
         ->contentClasses('text-center')
     ];

@@ -1,5 +1,5 @@
 @role('student')
-  <div class="alert alert-success" role="alert">
+  <div class="alert alert-primary" role="alert">
     <h4 class="alert-heading">Welcome</h4>
     <p>
       This is your dashboard. You can send a letter to your lecturer from here.

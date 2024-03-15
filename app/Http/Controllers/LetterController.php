@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Letter;
+use App\Models\Lecturer;
 use Illuminate\Http\Request;
 
 class LetterController extends Controller
@@ -20,7 +21,8 @@ class LetterController extends Controller
    */
   public function create()
   {
-    return view('letters.create');
+    $lecturers = Lecturer::lecturers()->get();
+    return view('letters.create', compact('lecturers'));
   }
 
   /**
