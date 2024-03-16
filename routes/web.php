@@ -23,6 +23,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::resource('letters', LetterController::class);
 
+  Route::get('/messages', [DashboardController::class, 'index'])->name('messages');
+
   Route::get('/archives', function () {
     return view('archives.index');
   })->middleware('role:admin,lecturer')->name('archives');

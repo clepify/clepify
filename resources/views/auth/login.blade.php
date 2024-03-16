@@ -9,7 +9,7 @@
         <div class="col-12">
           <div class="mb-4">
             <div class="text-center">
-              <img src="{{ asset('/images/CLEPify.svg') }}" alt="CLEPify Logo" width="160">
+              <img src="{{ asset('/images/CLEPify.png') }}" alt="CLEPify Logo" width="160">
               <p class="fs-5 mt-2">
                 Login to your account
               </p>

@@ -52,8 +52,8 @@
               </div>
               <div class="col-12 col-lg-6 pe-lg-0 mb-3">
                 <label for="date_sent" class="form-label">Date Sent</label>
-                <input type="date" class="form-control @error('date_sent') is-invalid @enderror" id="date_sent"
-                  name="date_sent" value="{{ old('date_sent') ? old('date_sent') : date('Y-m-d') }}" required>
+                <div data-coreui-date="{{ old('date_sent') ? old('date_sent') : date('Y-m-d') }}"
+                  data-coreui-footer="true" data-coreui-locale="en-UK" data-coreui-toggle="date-picker"></div>
                 @error('date_sent')
                   <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
@@ -90,8 +90,9 @@
                 @enderror
               </div>
               <div class="col-12 mb-3">
-                <label for="lecturer" class="form-label">Lecturer(s)</label>
-                <select class="form-select" id="lecturer" name="lecturer[]" multiple required>
+                <label for="lecturer[]" class="form-label">Lecturer(s)</label>
+                <select class="form-multi-select" id="lecturer[]" data-coreui-search="true" data-coreui-select-all="false"
+                  multiple required>
                   @foreach ($lecturers as $lecturer)
                     <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
                   @endforeach
@@ -130,26 +131,27 @@
 
 @push('scripts')
   <script>
-    $('#lecturer').select2({
-      width: '100%',
-    });
-    const type = $('#type');
-    const category = $('#category');
+    const type = document.querySelector('#type');
+    const category = document.querySelector('#category');
     const absence = ['Sick', 'Family', 'Religious', 'Other'];
     const request = ['Assignment', 'Exam', 'Other'];
 
-    type.on('change', function() {
-      category.html('');
-      category.prop('disabled', false);
-      if (type.val() === 'Absence') {
-        $.each(absence, function(index, item) {
-          const option = $('<option>').val(item).text(item);
-          category.append(option);
+    type.addEventListener('change', function() {
+      category.innerHTML = '';
+      category.disabled = false;
+      if (type.value === 'Absence') {
+        absence.forEach(function(item) {
+          const option = document.createElement('option');
+          option.value = item;
+          option.text = item;
+          category.appendChild(option);
         });
-      } else if (type.val() === 'Request') {
-        $.each(request, function(index, item) {
-          const option = $('<option>').val(item).text(item);
-          category.append(option);
+      } else if (type.value === 'Request') {
+        request.forEach(function(item) {
+          const option = document.createElement('option');
+          option.value = item;
+          option.text = item;
+          category.appendChild(option);
         });
       }
     });

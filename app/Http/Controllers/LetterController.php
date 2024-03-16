@@ -44,15 +44,25 @@ class LetterController extends Controller
 
     if ($user->role !== 'student') return abort(403, 'You are not authorized to perform this action');
 
+    $letter_path = $request->file('letter_document')->store('letters', 'public');
+    $letter_filename = basename($letter_path);
+
+    $supporting_document = $request->file('supporting_document');
+    $supporting_document_path = $supporting_document ? $supporting_document->store('letters', 'public') : null;
+    $supporting_document_filename = null;
+    if ($supporting_document_path) {
+      $supporting_document_filename = basename($supporting_document_path);
+    }
+
     Letter::create([
       'student_id' => $user->id,
       'date_sent' => $request->date_sent,
       'duration' => $request->duration,
       'type' => $request->type,
       'category' => $request->category,
-      'status' => 'Pending', // Default status is 'Pending
-      'letter_document' => $request->file('letter_document')->store('letters'),
-      'support_document' => $request->hasFile('supporting_document') ? $request->file('supporting_document')->store('letters') : null,
+      'status' => 'Pending',
+      'letter_document' => $letter_filename,
+      'support_document' => $supporting_document_filename,
     ]);
 
     return redirect()->route('letters.index')->with('success', 'Letter created successfully');
@@ -63,7 +73,6 @@ class LetterController extends Controller
    */
   public function show(string $id)
   {
-    //
   }
 
   /**

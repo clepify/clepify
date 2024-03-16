@@ -2,11 +2,11 @@
 $primary: #244282;
 // $primary: #00199b;
 
-// Import all of CoreUI's CSS
-@import "@coreui/coreui/scss/coreui";
+// Import all of CoreUI PRO's CSS
+@import "@coreui/coreui-pro/scss/coreui";
 
 // Import Bootstrap Icons
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
-// Import Custom CSS
+// Import Custom SCSS
 @import "custom";

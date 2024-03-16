@@ -26,7 +26,6 @@ final class LetterTable extends PowerGridComponent
   {
     return [
       Header::make()
-        ->includeViewOnTop('components.letter-table')
         ->showSearchInput(),
 
       Footer::make()

@@ -32,6 +32,15 @@ class UserSeeder extends Seeder
       'gender' => 'male',
       'phone' => '081234567890',
     ]);
+    User::create([
+      'name' => 'Atiqah Nurul Asri, S.Pd., M.Pd',
+      'username' => '197606252005012001',
+      'email' => 'atiqah.nurul@polinema.ac.id',
+      'password' => bcrypt('atiqah.nurul@polinema.ac.id'),
+      'role' => 'lecturer',
+      'gender' => 'female',
+      'phone' => '081234567890',
+    ]);
 
     User::create([
       'name' => 'Andhika Dwi Khalisyahputra',

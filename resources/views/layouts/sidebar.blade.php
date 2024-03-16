@@ -1,4 +1,4 @@
-<div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
+<div class="sidebar sidebar-dark sidebar-fixed @role('student') hide @endrole" id="sidebar">
   <div class="sidebar-brand">
     <span class="sidebar-brand-full fs-2">
       <b>CLEP</b>ify
