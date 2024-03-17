@@ -19,6 +19,8 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class LetterTable extends PowerGridComponent
 {
   use WithExport;
+  public bool $deferLoading = true;
+  public string $loadingComponent = 'components.loading';
   public string $sortField = 'created_at';
   public string $sortDirection = 'desc';
 
@@ -26,6 +28,7 @@ final class LetterTable extends PowerGridComponent
   {
     return [
       Header::make()
+        ->withoutLoading()
         ->showSearchInput(),
 
       Footer::make()
@@ -38,20 +41,31 @@ final class LetterTable extends PowerGridComponent
   public function datasource(): Builder
   {
     $user = auth()->user();
-    return Letter::query()->where('student_id', $user->id);
+
+    if ($user->role === 'admin') {
+      return Letter::query()->active();
+    }
+
+    return Letter::query()
+      ->where('student_id', $user->id)
+      ->active();
   }
 
   public function relationSearch(): array
   {
-    return [];
+    return [
+      'lecturer' => ['name']
+    ];
   }
 
   public function fields(): PowerGridFields
   {
     return PowerGrid::fields()
-      ->add('date_sent_formatted', fn (Letter $model) => Carbon::parse($model->date_sent)->format('d F Y'))
+      ->add('date_formatted', fn (Letter $model) => Carbon::parse($model->date)->format('d F Y'))
       ->add('duration_formatted', fn (Letter $model) => $model->duration . ' ' . ($model->duration == 1 ? 'Day' : 'Days'))
-      ->add('lecturer_formatted', fn (Letter $model) => 'Nama Dosen PhD')
+      ->add('lecturer_formatted', fn (Letter $model) => view('components.lecturers', [
+        'lecturers' => $model->lecturer->pluck('name')->toArray(),
+      ]))
       ->add('type')
       ->add('category')
       ->add('status_formatted', fn (Letter $model) => view('components.status', [
@@ -68,7 +82,7 @@ final class LetterTable extends PowerGridComponent
   public function columns(): array
   {
     return [
-      Column::make('Date sent', 'date_sent_formatted', 'date_sent')
+      Column::make('Date sent', 'date_formatted', 'date')
         ->sortable(),
 
       Column::make('Duration', 'duration_formatted', 'duration')
@@ -76,7 +90,6 @@ final class LetterTable extends PowerGridComponent
         ->searchable(),
 
       Column::make('Lecturer(s)', 'lecturer_formatted')
-        ->sortable()
         ->searchable(),
 
       Column::make('Type', 'type')
@@ -105,7 +118,7 @@ final class LetterTable extends PowerGridComponent
   public function filters(): array
   {
     return [
-      // Filter::datetimepicker('date_sent'),
+      // Filter::datetimepicker('date'),
     ];
   }
 }

@@ -14,7 +14,7 @@ return new class extends Migration
     Schema::create('letters', function (Blueprint $table) {
       $table->id();
       $table->unsignedBigInteger('student_id');
-      $table->dateTime('date_sent');
+      $table->dateTime('date');
       $table->string('duration');
       $table->string('type');
       $table->string('category');

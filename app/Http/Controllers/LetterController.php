@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreLetterRequest;
+use DateTime;
 use App\Models\Letter;
 use App\Models\Lecturer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class LetterController extends Controller
 {
@@ -28,18 +31,8 @@ class LetterController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store(Request $request)
+  public function store(StoreLetterRequest $request)
   {
-    $request->validate([
-      'date_sent' => ['required', 'date'],
-      'duration' => ['required', 'numeric'],
-      'type' => ['required', 'string'],
-      'category' => ['required', 'string'],
-      'lecturer' => ['required', 'array'],
-      'letter_document' => ['required', 'file', 'mimes:pdf', 'max:2048'],
-      'supporting_document' => ['file', 'mimes:pdf', 'max:2048'],
-    ]);
-
     $user = auth()->user();
 
     if ($user->role !== 'student') return abort(403, 'You are not authorized to perform this action');
@@ -47,23 +40,39 @@ class LetterController extends Controller
     $letter_path = $request->file('letter_document')->store('letters', 'public');
     $letter_filename = basename($letter_path);
 
-    $supporting_document = $request->file('supporting_document');
-    $supporting_document_path = $supporting_document ? $supporting_document->store('letters', 'public') : null;
-    $supporting_document_filename = null;
-    if ($supporting_document_path) {
-      $supporting_document_filename = basename($supporting_document_path);
+    $support_document = $request->file('support_document');
+    $support_document_path = $support_document ? $support_document->store('supports', 'public') : null;
+    $support_document_filename = null;
+    if ($support_document_path) {
+      $support_document_filename = basename($support_document_path);
     }
 
-    Letter::create([
-      'student_id' => $user->id,
-      'date_sent' => $request->date_sent,
-      'duration' => $request->duration,
-      'type' => $request->type,
-      'category' => $request->category,
-      'status' => 'Pending',
-      'letter_document' => $letter_filename,
-      'support_document' => $supporting_document_filename,
-    ]);
+    $date =
+      DateTime::createFromFormat('d/m/Y', $request->input('date-picker-date'))->format('Y-m-d');
+
+    try {
+      DB::beginTransaction();
+
+      Letter::create([
+        'student_id' => $user->id,
+        'date' => $date,
+        'duration' => $request->duration,
+        'type' => $request->type,
+        'category' => $request->category,
+        'status' => 'Pending',
+        'letter_document' => $letter_filename,
+        'support_document' => $support_document_filename,
+      ]);
+
+      $letter = Letter::latest()->first();
+      $letter->lecturer()->attach($request->input('multi-select-lecturer'));
+
+      DB::commit();
+    } catch (\Exception $e) {
+      DB::rollBack();
+      dd($e);
+      return redirect()->back()->with('error', 'An error occurred while creating the letter');
+    }
 
     return redirect()->route('letters.index')->with('success', 'Letter created successfully');
   }

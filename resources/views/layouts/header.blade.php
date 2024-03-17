@@ -51,8 +51,17 @@
           <li>
             <h6 class="dropdown-header bg-light">Account</h6>
           </li>
-          <li><a class="dropdown-item" href="#">Profile</a></li>
-          <li><a class="dropdown-item" href="#">Logout</a></li>
+          <a class="dropdown-item" href="#">
+            <i class="bi-person me-2"></i> Profile
+          </a>
+          <a class="dropdown-item" href="#"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="bi-box-arrow-right me-2"></i>
+            Logout
+          </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+          </form>
         </ul>
       </li>
     </ul>

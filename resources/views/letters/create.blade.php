@@ -36,63 +36,44 @@
             <div class="row">
               <div class="col-12 col-lg-6 pe-lg-0 mb-3">
                 <label for="nim" class="form-label">NIM</label>
-                <input type="text" class="form-control @error('nim') is-invalid @enderror" id="nim"
-                  name="nim" value="{{ Auth::user()->username }}" disabled>
-                @error('name')
-                  <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                <input type="text" class="form-control disabled" id="nim" name="nim"
+                  value="{{ Auth::user()->username }}" disabled>
               </div>
               <div class="col-12 col-lg-6 mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                  name="name" value="{{ Auth::user()->name }}" disabled>
-                @error('name')
-                  <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                <input type="text" class="form-control disabled" id="name" name="name"
+                  value="{{ Auth::user()->name }}" disabled>
               </div>
               <div class="col-12 col-lg-6 pe-lg-0 mb-3">
-                <label for="date_sent" class="form-label">Date Sent</label>
-                <div data-coreui-date="{{ old('date_sent') ? old('date_sent') : date('Y-m-d') }}"
-                  data-coreui-footer="true" data-coreui-locale="en-UK" data-coreui-toggle="date-picker"></div>
-                @error('date_sent')
-                  <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                <label for="date" class="form-label">Date Sent</label>
+                <div id="date" name="date" data-coreui-date="{{ old('date') ? old('date') : date('Y-m-d') }}"
+                  data-coreui-footer="true" data-coreui-locale="en-UK" data-coreui-toggle="date-picker">
+                </div>
               </div>
               <div class="col-12 col-lg-6 mb-3">
                 <label for="duration" class="form-label">Duration</label>
-                <select class="form-select @error('duration') is-invalid @enderror" id="duration" name="duration"
-                  required>
+                <select class="form-select" id="duration" name="duration" required>
                   <option value="" hidden>Select Duration</option>
                   <option value="1" {{ old('duration') == 1 ? 'selected' : '' }}>1 Day</option>
                 </select>
-                @error('type')
-                  <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
               </div>
               <div class="col-12 col-lg-6 pe-lg-0 mb-3">
                 <label for="type" class="form-label">Type</label>
-                <select class="form-select @error('type') is-invalid @enderror" id="type" name="type" required>
+                <select class="form-select" id="type" name="type" required>
                   <option value="" hidden>Select Type</option>
                   <option value="Absence" {{ old('type') == 'Absence' ? 'selected' : '' }}>Absence</option>
                   <option value="Request" {{ old('type') == 'Request' ? 'selected' : '' }}>Request</option>
                 </select>
-                @error('type')
-                  <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
               </div>
               <div class="col-12 col-lg-6 mb-3">
                 <label for="category" class="form-label">Category</label>
-                <select class="form-select @error('category') is-invalid @enderror" id="category" name="category"
-                  required disabled>
+                <select class="form-select" id="category" name="category" required disabled>
                 </select>
-                @error('category')
-                  <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
               </div>
               <div class="col-12 mb-3">
                 <label for="lecturer[]" class="form-label">Lecturer(s)</label>
                 <select class="form-multi-select" id="lecturer[]" data-coreui-search="true" data-coreui-select-all="false"
-                  multiple required>
+                  multiple>
                   @foreach ($lecturers as $lecturer)
                     <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
                   @endforeach
@@ -100,21 +81,24 @@
               </div>
               <div class="col-12 mb-3">
                 <label for="letter_document" class="form-label">Letter Document</label>
-                <input class="form-control @error('letter_document') is-invalid @enderror" type="file"
-                  id="letter_document" name="letter_document" accept="application/pdf" required>
-                @error('file')
-                  <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                <input class="form-control" type="file" id="letter_document" name="letter_document"
+                  accept="application/pdf" required>
               </div>
               <div class="col-12 mb-3">
                 <label for="support_document" class="form-label">Support Document</label>
-                <input class="form-control @error('support_document') is-invalid @enderror" type="file"
-                  id="support_document" name="support_document" accept="application/pdf">
-                @error('file')
-                  <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
+                <input class="form-control" type="file" id="support_document" name="support_document"
+                  accept="application/pdf">
               </div>
             </div>
+            @if ($errors->any())
+              <div class="alert alert-danger">
+                <ul class="mb-0">
+                  @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                  @endforeach
+                </ul>
+              </div>
+            @endif
             <div class="form-check mb-3">
               <input class="form-check-input" type="checkbox" value="" id="confirmation" required>
               <label class="form-check ps-2" for="confirmation">

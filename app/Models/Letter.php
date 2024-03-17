@@ -11,7 +11,7 @@ class Letter extends Model
 
   protected $fillable = [
     'student_id',
-    'date_sent',
+    'date',
     'duration',
     'type',
     'category',
@@ -19,6 +19,16 @@ class Letter extends Model
     'letter_document',
     'support_document'
   ];
+
+  public function scopeActive()
+  {
+    return $this->where('status', '!=', 'Archived');
+  }
+
+  public function scopeArchived()
+  {
+    return $this->where('status', 'Archived');
+  }
 
   public function student()
   {

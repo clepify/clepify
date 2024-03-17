@@ -42,7 +42,7 @@ final class MyLetterTable extends PowerGridComponent
   public function fields(): PowerGridFields
   {
     return PowerGrid::fields()
-      ->add('date_sent_formatted', fn (Letter $model) => Carbon::parse($model->date_sent)->format('d F Y'))
+      ->add('date_formatted', fn (Letter $model) => Carbon::parse($model->date)->format('d F Y'))
       ->add('duration_formatted', fn (Letter $model) => $model->duration . ' ' . ($model->duration == 1 ? 'Day' : 'Days'))
       ->add('type')
       ->add('category')
@@ -54,7 +54,7 @@ final class MyLetterTable extends PowerGridComponent
   public function columns(): array
   {
     return [
-      Column::make('Date sent', 'date_sent_formatted', 'date_sent')
+      Column::make('Date sent', 'date_formatted', 'date')
         ->sortable(),
 
       Column::make('Duration', 'duration_formatted', 'duration')
@@ -93,7 +93,7 @@ final class MyLetterTable extends PowerGridComponent
   public function filters(): array
   {
     return [
-      // Filter::datetimepicker('date_sent'),
+      // Filter::datetimepicker('date'),
     ];
   }
 
