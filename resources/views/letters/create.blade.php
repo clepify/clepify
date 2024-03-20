@@ -38,7 +38,8 @@
             <div class="row">
               <div class="col-12 col-lg-6 pe-lg-0 mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" value="{{ Auth::user()->name }}" disabled>
+                <input type="text" class="form-control" id="name" value="{{ Auth::user()->name }}" disabled
+                  style="background-color: #d8dbe0 !important;">
               </div>
               <div class="col-12 col-lg-6 mb-3">
                 <label for="date" class="form-label">Date</label>
