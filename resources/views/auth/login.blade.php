@@ -39,6 +39,9 @@
               <input type="password" class="form-control" name="password" id="password" placeholder="Password"
                 autocomplete="current-password" required>
               <label for="password" class="form-label">Password</label>
+              <button class="btn btn-ghost" type="button" id="password-visibility">
+                <i class="bi bi-eye-slash" id="password-visibility-icon"></i>
+              </button>
             </div>
           </div>
           <div class="col-12">
@@ -76,6 +79,21 @@
   document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.querySelector('#login-form');
     const loginButton = loginForm.querySelector('button[type="submit"]');
+    const passwordInput = loginForm.querySelector('input[name="password"]');
+    const passwordVisibilityButton = loginForm.querySelector('#password-visibility');
+    const passwordVisibilityIcon = loginForm.querySelector('#password-visibility-icon');
+
+    passwordVisibilityButton.addEventListener('click', function() {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        passwordVisibilityIcon.classList.remove('bi-eye-slash');
+        passwordVisibilityIcon.classList.add('bi-eye');
+      } else {
+        passwordInput.type = 'password';
+        passwordVisibilityIcon.classList.remove('bi-eye');
+        passwordVisibilityIcon.classList.add('bi-eye-slash');
+      }
+    });
 
     loginForm.addEventListener('submit', function() {
       loginButton.innerHTML =

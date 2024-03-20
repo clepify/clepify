@@ -23,6 +23,8 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::resource('letters', LetterController::class);
 
+  Route::get('/letter-template', [LetterController::class, 'letterTemplate'])->name('letters.letter-template');
+
   Route::get('/messages', [DashboardController::class, 'index'])->name('messages');
 
   Route::get('/archives', function () {

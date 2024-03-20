@@ -53,3 +53,65 @@
 .sidebar-nav .nav-link.active {
   background-color: $dark;
 }
+
+// Badge
+.primary-badge {
+  background-color: $primary;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 15px;
+}
+
+.secondary-badge {
+  background-color: $dark;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 15px;
+}
+
+.info-badge {
+  background-color: $info;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 15px;
+}
+
+.warning-badge {
+  background-color: $warning;
+  font-weight: 500;
+  font-size: 12px;
+  color: #000;
+  padding: 8px 12px;
+  border-radius: 15px;
+}
+
+.success-badge {
+  background-color: $success;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 15px;
+}
+
+.danger-badge {
+  background-color: $danger;
+  font-weight: 500;
+  font-size: 12px;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 15px;
+}
+
+#password-visibility {
+  position: absolute;
+  right: 10;
+  top: 14;
+  border-width: 0;
+}

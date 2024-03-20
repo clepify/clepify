@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreLetterRequest;
-use DateTime;
 use App\Models\Letter;
 use App\Models\Lecturer;
 use Illuminate\Http\Request;
@@ -47,16 +46,12 @@ class LetterController extends Controller
       $support_document_filename = basename($support_document_path);
     }
 
-    $date =
-      DateTime::createFromFormat('d/m/Y', $request->input('date-picker-date'))->format('Y-m-d');
-
     try {
       DB::beginTransaction();
 
       Letter::create([
         'student_id' => $user->id,
-        'date' => $date,
-        'duration' => $request->duration,
+        'date' => $request->date,
         'type' => $request->type,
         'category' => $request->category,
         'status' => 'Pending',
@@ -70,7 +65,6 @@ class LetterController extends Controller
       DB::commit();
     } catch (\Exception $e) {
       DB::rollBack();
-      dd($e);
       return redirect()->back()->with('error', 'An error occurred while creating the letter');
     }
 
@@ -106,5 +100,10 @@ class LetterController extends Controller
   public function destroy(string $id)
   {
     //
+  }
+
+  public function letterTemplate()
+  {
+    return response()->download(public_path('documents/letter_template.docx'));
   }
 }

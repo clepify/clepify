@@ -44,11 +44,16 @@ final class LetterTable extends PowerGridComponent
 
     if ($user->role === 'admin') {
       return Letter::query()->active();
+    } else if ($user->role === 'lecturer') {
+      return Letter::query()
+        ->whereHas('lecturer', function ($query) use ($user) {
+          $query->where('lecturer_id', $user->id);
+        });
     }
 
     return Letter::query()
-      ->where('student_id', $user->id)
-      ->active();
+      ->where('student_id', $user->id);
+    // ->active();
   }
 
   public function relationSearch(): array
@@ -62,7 +67,6 @@ final class LetterTable extends PowerGridComponent
   {
     return PowerGrid::fields()
       ->add('date_formatted', fn (Letter $model) => Carbon::parse($model->date)->format('d F Y'))
-      ->add('duration_formatted', fn (Letter $model) => $model->duration . ' ' . ($model->duration == 1 ? 'Day' : 'Days'))
       ->add('lecturer_formatted', fn (Letter $model) => view('components.lecturers', [
         'lecturers' => $model->lecturer->pluck('name')->toArray(),
       ]))
@@ -85,10 +89,6 @@ final class LetterTable extends PowerGridComponent
       Column::make('Date sent', 'date_formatted', 'date')
         ->sortable(),
 
-      Column::make('Duration', 'duration_formatted', 'duration')
-        ->sortable()
-        ->searchable(),
-
       Column::make('Lecturer(s)', 'lecturer_formatted')
         ->searchable(),
 
@@ -100,25 +100,19 @@ final class LetterTable extends PowerGridComponent
         ->sortable()
         ->searchable(),
 
-      Column::make('Status', 'status_formatted', 'status')
-        ->headerAttribute('text-center')
-        ->contentClasses('text-center')
-        ->searchable(),
-
       Column::make('Letter', 'letter_formatted', 'id')
         ->headerAttribute('text-center')
         ->contentClasses('text-center'),
 
       Column::make('Support', 'support_formatted', 'id')
         ->headerAttribute('text-center')
-        ->contentClasses('text-center')
-    ];
-  }
+        ->contentClasses('text-center'),
 
-  public function filters(): array
-  {
-    return [
-      // Filter::datetimepicker('date'),
+      Column::make('Status', 'status_formatted', 'status')
+        ->headerAttribute('text-center')
+        ->contentClasses('text-center')
+        ->sortable()
+        ->searchable(),
     ];
   }
 }

@@ -15,15 +15,17 @@
       <div class="card">
         <div class="card-header">Letter Template</div>
         <div class="card-body">
-          <div class="mb-3">
-            <label for="letter_template" class="form-label">Letter Template</label>
-            <select class="form-select" id="letter_template">
-              <option value="" hidden>Select Letter Template</option>
-              <option value="Absence">Absence</option>
-              <option value="Request">Request</option>
-            </select>
-          </div>
-          <button class="btn btn-primary">Download</button>
+          <form action="{{ route('letters.letter-template') }}">
+            <div class="mb-3">
+              <label for="letter_template" class="form-label">Letter Template</label>
+              <select class="form-select" id="letter_template" required>
+                <option value="" hidden>Select Letter Template</option>
+                <option value="Absence">Absence</option>
+                <option value="Request">Request</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Download</button>
+          </form>
         </div>
       </div>
     </div>
@@ -35,34 +37,20 @@
             @csrf
             <div class="row">
               <div class="col-12 col-lg-6 pe-lg-0 mb-3">
-                <label for="nim" class="form-label">NIM</label>
-                <input type="text" class="form-control disabled" id="nim" name="nim"
-                  value="{{ Auth::user()->username }}" disabled>
-              </div>
-              <div class="col-12 col-lg-6 mb-3">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control disabled" id="name" name="name"
-                  value="{{ Auth::user()->name }}" disabled>
-              </div>
-              <div class="col-12 col-lg-6 pe-lg-0 mb-3">
-                <label for="date" class="form-label">Date Sent</label>
-                <div id="date" name="date" data-coreui-date="{{ old('date') ? old('date') : date('Y-m-d') }}"
-                  data-coreui-footer="true" data-coreui-locale="en-UK" data-coreui-toggle="date-picker">
-                </div>
+                <input type="text" class="form-control" id="name" value="{{ Auth::user()->name }}" disabled>
               </div>
               <div class="col-12 col-lg-6 mb-3">
-                <label for="duration" class="form-label">Duration</label>
-                <select class="form-select" id="duration" name="duration" required>
-                  <option value="" hidden>Select Duration</option>
-                  <option value="1" {{ old('duration') == 1 ? 'selected' : '' }}>1 Day</option>
-                </select>
+                <label for="date" class="form-label">Date</label>
+                <input type="date" class="form-control" id="date" name="date"
+                  value="{{ old('date') ? old('date') : date('Y-m-d') }}" required>
               </div>
               <div class="col-12 col-lg-6 pe-lg-0 mb-3">
                 <label for="type" class="form-label">Type</label>
                 <select class="form-select" id="type" name="type" required>
                   <option value="" hidden>Select Type</option>
-                  <option value="Absence" {{ old('type') == 'Absence' ? 'selected' : '' }}>Absence</option>
-                  <option value="Request" {{ old('type') == 'Request' ? 'selected' : '' }}>Request</option>
+                  <option value="Absence">Absence</option>
+                  <option value="Request">Request</option>
                 </select>
               </div>
               <div class="col-12 col-lg-6 mb-3">
@@ -117,8 +105,8 @@
   <script>
     const type = document.querySelector('#type');
     const category = document.querySelector('#category');
-    const absence = ['Sick', 'Family', 'Religious', 'Other'];
-    const request = ['Assignment', 'Exam', 'Other'];
+    const absence = ['Sick', 'Permission', 'Dispensation', 'Other'];
+    const request = ['Recommendation', 'Certificate', 'Transcript', 'Other'];
 
     type.addEventListener('change', function() {
       category.innerHTML = '';

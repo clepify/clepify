@@ -14,8 +14,7 @@ class StoreLetterRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'date-picker-date' => ['required', 'string'],
-      'duration' => ['required', 'numeric'],
+      'date' => ['required', 'date'],
       'type' => ['required', 'string'],
       'category' => ['required', 'string'],
       'multi-select-lecturer' => ['required', 'array'],

@@ -13,6 +13,12 @@
       </main>
       @include('layouts.footer')
     </div>
+    {{-- <script>
+      const clearSearch = document.getElementById('clear-search');
+      clearSearch.addEventListener('click', () => {
+        document.getElementById('search').addEventListener('input', (event) => {});
+      });
+    </script> --}}
     @stack('scripts')
   </body>
 @endsection
