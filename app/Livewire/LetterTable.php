@@ -46,6 +46,7 @@ final class LetterTable extends PowerGridComponent
       return Letter::query()->active();
     } else if ($user->role === 'lecturer') {
       return Letter::query()
+        ->active()
         ->whereHas('lecturer', function ($query) use ($user) {
           $query->where('lecturer_id', $user->id);
         });
@@ -59,7 +60,8 @@ final class LetterTable extends PowerGridComponent
   public function relationSearch(): array
   {
     return [
-      'lecturer' => ['name']
+      'lecturer' => ['name'],
+      'student' => ['name'],
     ];
   }
 
@@ -67,11 +69,17 @@ final class LetterTable extends PowerGridComponent
   {
     return PowerGrid::fields()
       ->add('date_formatted', fn (Letter $model) => Carbon::parse($model->date)->format('d F Y'))
+      ->add('student_name', fn (Letter $model) => $model->student->name)
+      ->add('student_details', fn (Letter $model) => $model->student->studentDetail->studyProgramAbbrievation() . ' - ' . $model->student->studentDetail->class)
       ->add('lecturer_formatted', fn (Letter $model) => view('components.lecturers', [
         'lecturers' => $model->lecturer->pluck('name')->toArray(),
       ]))
       ->add('type')
       ->add('category')
+      ->add('action', fn (Letter $model) => view('components.action', [
+        'id' => $model->id,
+        'status' => $model->status
+      ]))
       ->add('status_formatted', fn (Letter $model) => view('components.status', [
         'status' => $model->status
       ]))
@@ -89,8 +97,21 @@ final class LetterTable extends PowerGridComponent
       Column::make('Date sent', 'date_formatted', 'date')
         ->sortable(),
 
+      Column::make('Student', 'student_name')
+        ->hidden(
+          auth()->user()->role === 'student'
+        ),
+
+      Column::make('Class', 'student_details')
+        ->hidden(
+          auth()->user()->role === 'student'
+        ),
+
       Column::make('Lecturer(s)', 'lecturer_formatted')
-        ->searchable(),
+        ->searchable()
+        ->hidden(
+          auth()->user()->role === 'lecturer'
+        ),
 
       Column::make('Type', 'type')
         ->sortable()
@@ -113,6 +134,13 @@ final class LetterTable extends PowerGridComponent
         ->contentClasses('text-center')
         ->sortable()
         ->searchable(),
+
+      Column::make('Action', 'action', 'id')
+        ->headerAttribute('text-center')
+        ->contentClasses('text-center')
+        ->hidden(
+          auth()->user()->role === 'student'
+        )
     ];
   }
 }

@@ -94,6 +94,15 @@ class LetterController extends Controller
     //
   }
 
+  public function approve(string $id)
+  {
+    $letter = Letter::findOrFail($id);
+    $letter->status = 'Approved';
+    $letter->save();
+
+    return redirect()->back()->with('success', 'Letter approved successfully');
+  }
+
   /**
    * Remove the specified resource from storage.
    */

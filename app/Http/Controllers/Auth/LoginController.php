@@ -75,6 +75,6 @@ class LoginController extends Controller
 
   public function throttleKey(Request $request)
   {
-    return $request->ip();
+    return $request->input('username');
   }
 }

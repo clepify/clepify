@@ -15,6 +15,19 @@ class StudentDetail extends Model
     'class'
   ];
 
+  public function scopeStudyProgramAbbrievation()
+  {
+    $study_program = $this->study_program;
+    switch ($study_program) {
+      case 'D4 Teknik Informatika':
+        return 'D4 TI';
+      case 'D4 Sistem Informasi Bisnis':
+        return 'D4 SIB';
+      default:
+        return $study_program;
+    }
+  }
+
   public function user()
   {
     return $this->belongsTo(User::class);
