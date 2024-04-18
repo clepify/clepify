@@ -10,7 +10,24 @@
 @endsection
 
 @section('content')
-  <div class="alert alert-primary" role="alert">
-    This is archives page.
+  <div class="card">
+    <div class="card-header">
+      <span class="fs-5">Archives</span>
+    </div>
+    <div class="card-body">
+      @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ session('success') }}
+          <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
+        </div>
+      @endif
+      @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ session('error') }}
+          <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
+        </div>
+      @endif
+      <livewire:archive-table />
+    </div>
   </div>
 @endsection

@@ -24,6 +24,7 @@ Route::group(['middleware' => 'auth'], function () {
   Route::resource('letters', LetterController::class);
 
   Route::patch('/letters/{id}/approve', [LetterController::class, 'approve'])->name('letters.approve');
+  Route::patch('/letters/{id}/archive', [LetterController::class, 'archive'])->name('letters.archive');
 
   Route::get('/letter-template', [LetterController::class, 'letterTemplate'])->name('letters.letter-template');
 

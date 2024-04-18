@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\StudentDetail;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -50,6 +51,12 @@ class UserSeeder extends Seeder
       'role' => 'student',
       'gender' => 'male',
       'phone' => '081234567890',
+    ]);
+
+    StudentDetail::create([
+      'user_id' => 4,
+      'study_program' => 'D4 Sistem Informasi Bisnis',
+      'class' => '3A',
     ]);
   }
 }

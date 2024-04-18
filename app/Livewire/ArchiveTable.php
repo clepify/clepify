@@ -16,9 +16,8 @@ use PowerComponents\LivewirePowerGrid\PowerGridFields;
 use PowerComponents\LivewirePowerGrid\PowerGridComponent;
 use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 
-final class LetterTable extends PowerGridComponent
+final class ArchiveTable extends PowerGridComponent
 {
-  use WithExport;
   public bool $deferLoading = true;
   public string $loadingComponent = 'components.loading';
   public string $sortField = 'created_at';
@@ -46,7 +45,7 @@ final class LetterTable extends PowerGridComponent
       return Letter::query()->active();
     } else if ($user->role === 'lecturer') {
       return Letter::query()
-        ->active()
+        ->archived()
         ->whereHas('lecturer', function ($query) use ($user) {
           $query->where('lecturer_id', $user->id);
         });

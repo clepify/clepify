@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreLetterRequest;
 use App\Models\Letter;
+use App\Models\LetterStatus;
 use App\Models\Lecturer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\StoreLetterRequest;
 
 class LetterController extends Controller
 {
@@ -97,10 +99,52 @@ class LetterController extends Controller
   public function approve(string $id)
   {
     $letter = Letter::findOrFail($id);
+    $old_status = $letter->status;
     $letter->status = 'Approved';
     $letter->save();
 
+    LetterStatus::create([
+      'letter_id' => $letter->id,
+      'user_id' => auth()->user()->id,
+      'status_before' => $old_status,
+      'status_after' => 'Approved',
+    ]);
+
     return redirect()->back()->with('success', 'Letter approved successfully');
+  }
+
+  public function reject(string $id)
+  {
+    $letter = Letter::findOrFail($id);
+    $old_status = $letter->status;
+    $letter->status = 'Rejected';
+    $letter->save();
+
+    LetterStatus::create([
+      'letter_id' => $letter->id,
+      'user_id' => auth()->user()->id,
+      'status_before' => $old_status,
+      'status_after' => 'Rejected',
+    ]);
+
+    return redirect()->back()->with('success', 'Letter rejected successfully');
+  }
+
+  public function archive(string $id)
+  {
+    $letter = Letter::findOrFail($id);
+    $old_status = $letter->status;
+    $letter->status = 'Archived';
+    $letter->save();
+
+    LetterStatus::create([
+      'letter_id' => $letter->id,
+      'user_id' => auth()->user()->id,
+      'status_before' => $old_status,
+      'status_after' => 'Archived',
+    ]);
+
+    return redirect()->back()->with('success', 'Letter archived successfully');
   }
 
   /**
@@ -108,7 +152,30 @@ class LetterController extends Controller
    */
   public function destroy(string $id)
   {
-    //
+    $letter = Letter::findOrFail($id);
+
+    $created_at = $letter->created_at;
+    $now = now();
+    $diff = $now->diffInMinutes($created_at);
+
+    if ($diff > 10) {
+      return redirect()->back()->with('error', 'You cannot delete this letter because it has been more than 10 minutes since it was created');
+    }
+
+    $letter_path = 'public/letters/' . $letter->letter_document;
+    $support_path = 'public/supports/' . $letter->support_document;
+
+    if ($letter_path) {
+      Storage::delete($letter_path);
+    }
+
+    if ($support_path) {
+      Storage::delete($support_path);
+    }
+
+    $letter->delete();
+
+    return redirect()->back()->with('success', 'Letter deleted successfully');
   }
 
   public function letterTemplate()
