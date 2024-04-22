@@ -19,6 +19,7 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 final class ArchiveTable extends PowerGridComponent
 {
   public bool $deferLoading = true;
+  public bool $showFilters = true;
   public string $loadingComponent = 'components.loading';
   public string $sortField = 'created_at';
   public string $sortDirection = 'desc';
@@ -42,7 +43,7 @@ final class ArchiveTable extends PowerGridComponent
     $user = auth()->user();
 
     if ($user->role === 'admin') {
-      return Letter::query()->active();
+      return Letter::query()->archived();
     } else if ($user->role === 'lecturer') {
       return Letter::query()
         ->archived()
@@ -141,6 +142,15 @@ final class ArchiveTable extends PowerGridComponent
       // ->hidden(
       //   auth()->user()->role === 'student'
       // )
+    ];
+  }
+
+  public function filters(): array
+  {
+    return [
+      Filter::select('status')
+        ->dataSource(Letter::all())
+        ->optionLabel('category'),
     ];
   }
 }

@@ -115,3 +115,11 @@
   top: 14;
   border-width: 0;
 }
+
+.nav-tabs .nav-link.active {
+  border-color: transparent !important;
+}
+
+a > .card:hover {
+  background-color: #2a3446 !important;
+}

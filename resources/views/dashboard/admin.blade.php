@@ -1,42 +1,26 @@
 @role('admin')
-  <div class="container-lg">
-    <div class="row">
-      <div class="col-sm-6 col-lg-3">
-        <div class="card bg-primary mb-4 text-white">
-          <div class="card-body">
-            <div class="fs-4 fw-semibold">89.9%</div>
-            <div>Widget title</div>
-            <small class="text-medium-emphasis-inverse">Widget helper text</small>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-lg-3">
-        <div class="card bg-warning mb-4 text-white">
-          <div class="card-body">
-            <div class="fs-4 fw-semibold">12.124</div>
-            <div>Widget title</div>
-            <small class="text-medium-emphasis-inverse">Widget helper text</small>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-lg-3">
-        <div class="card bg-danger mb-4 text-white">
-          <div class="card-body">
-            <div class="fs-4 fw-semibold">$98.111,00</div>
-            <div>Widget title</div>
-            <small class="text-medium-emphasis-inverse">Widget helper text</small>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6 col-lg-3">
-        <div class="card bg-info mb-4 text-white">
-          <div class="card-body">
-            <div class="fs-4 fw-semibold">2 TB</div>
-            <div>Widget title</div>
-            <small class="text-medium-emphasis-inverse">Widget helper text</small>
-          </div>
-        </div>
-      </div>
+  <nav class="nav nav-fill">
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <button class="nav-link active" id="nav-0-tab" data-coreui-toggle="tab" data-coreui-target="#nav-0" type="button"
+        role="tab" aria-controls="nav-0" aria-selected="true">D4 Teknik Informatika</button>
+      <button class="nav-link" id="nav-1-tab" data-coreui-toggle="tab" data-coreui-target="#nav-1" type="button"
+        role="tab" aria-controls="nav-1" aria-selected="false">D4 Sistem Informasi
+        Bisnis</button>
+      <button class="nav-link" id="nav-2-tab" data-coreui-toggle="tab" data-coreui-target="#nav-2" type="button"
+        role="tab" aria-controls="nav-2" aria-selected="false">D2 Rekayasa Perangkat
+        Lunak</button>
+    </div>
+  </nav>
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active bg-white pt-2" id="nav-0" role="tabpanel" aria-labelledby="nav-0-tab"
+      tabindex="0">
+      @include('dashboard.grid-0')
+    </div>
+    <div class="tab-pane fade bg-white pt-2" id="nav-1" role="tabpanel" aria-labelledby="nav-1-tab" tabindex="0">
+      @include('dashboard.grid-1')
+    </div>
+    <div class="tab-pane fade bg-white pt-2" id="nav-2" role="tabpanel" aria-labelledby="nav-2-tab" tabindex="0">
+      @include('dashboard.grid-2')
     </div>
   </div>
 @endrole
