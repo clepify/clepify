@@ -27,7 +27,7 @@
           <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
         </div>
       @endif
-      {{-- <livewire:archive-table /> --}}
+      <livewire:lecturer-table />
     </div>
   </div>
 @endsection

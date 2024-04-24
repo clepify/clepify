@@ -48,6 +48,16 @@ class User extends Authenticatable
     'password' => 'hashed',
   ];
 
+  public function scopeLecturers($query)
+  {
+    return $query->where('role', 'lecturer');
+  }
+
+  public function scopeStudents($query)
+  {
+    return $query->where('role', 'student');
+  }
+
   public function studentDetail()
   {
     return $this->hasOne(StudentDetail::class);
