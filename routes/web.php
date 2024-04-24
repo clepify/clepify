@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LetterController;
+use App\Http\Controllers\LecturerController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +35,9 @@ Route::group(['middleware' => 'auth'], function () {
   Route::get('/archives', function () {
     return view('archives.index');
   })->middleware('role:admin,lecturer')->name('archives');
+
+  Route::get('/lecturers', [LecturerController::class, 'index'])->name('lecturers');
+  Route::get('/students', [StudentController::class, 'index'])->name('students');
 });
 
 // Route::fallback(function () {

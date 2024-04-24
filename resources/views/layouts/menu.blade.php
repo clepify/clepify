@@ -14,7 +14,7 @@
     </a>
   </li>
   @role('admin', 'lecturer')
-    <li class="nav-item">
+    <li class="nav-item"> 
       <a class="nav-link {{ request()->routeIs('archives') ? 'active' : '' }}" href="{{ route('archives') }}">
         <span class="nav-icon">
           <i class="bi bi-archive"></i>
@@ -32,14 +32,14 @@
       </a>
       <ul class="nav-group-items">
         <li class="nav-item">
-          <a class="nav-link" href="#" target="_top">
+          <a class="nav-link {{ request()->routeIs('lecturers') ? 'active' : '' }}" href="{{ route('lecturers') }}" target="_top">
             <span class="nav-icon">
               <i class="bi bi-person"></i>
             </span> Lecturers
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#" target="_top">
+          <a class="nav-link {{ request()->routeIs('students') ? 'active' : '' }}" href="{{ route('students') }}" target="_top">
             <span class="nav-icon">
               <i class="bi bi-person"></i>
             </span> Students
