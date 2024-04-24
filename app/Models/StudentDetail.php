@@ -32,4 +32,14 @@ class StudentDetail extends Model
   {
     return $this->belongsTo(User::class);
   }
+
+  public function studyProgram()
+  {
+    return $this->hasOne(StudyProgram::class);
+  }
+
+  public function class()
+  {
+    return $this->hasOne(ClassModel::class);
+  }
 }

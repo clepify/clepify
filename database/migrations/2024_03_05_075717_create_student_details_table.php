@@ -14,11 +14,13 @@ return new class extends Migration
     Schema::create('student_details', function (Blueprint $table) {
       $table->id();
       $table->unsignedBigInteger('user_id');
-      $table->string('study_program');
-      $table->string('class');
+      $table->unsignedBigInteger('study_program_id');
+      $table->unsignedBigInteger('class_id');
       $table->timestamps();
 
       $table->foreign('user_id')->references('id')->on('users');
+      $table->foreign('study_program_id')->references('id')->on('study_programs');
+      $table->foreign('class_id')->references('id')->on('class');
     });
   }
 

@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\StudentDetail;
 use App\Models\User;
+use App\Models\ClassModel;
+use App\Models\StudyProgram;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -53,10 +55,26 @@ class UserSeeder extends Seeder
       'phone' => '081234567890',
     ]);
 
+    StudyProgram::create([
+      'name' => 'D4 Teknik Informatika'
+    ]);
+
+    StudyProgram::create([
+      'name' => 'D4 Sistem Informasi Bisnis'
+    ]);
+
+    $studyProgramD4TI = StudyProgram::where('name', 'D4 Teknik Informatika')->first();
+    $studyProgramD4SIB = StudyProgram::where('name', 'D4 Sistem Informasi Bisnis')->first();
+
+    $sib3a = ClassModel::create([
+        'name' => '3A',
+        'study_program_id' => $studyProgramD4SIB->id,
+    ]);
+
     StudentDetail::create([
       'user_id' => 4,
-      'study_program' => 'D4 Sistem Informasi Bisnis',
-      'class' => '3A',
+      'study_program_id' => $studyProgramD4SIB->id,
+      'class_id' => $sib3a->id,
     ]);
   }
 }
