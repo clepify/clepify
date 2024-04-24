@@ -24,6 +24,20 @@
   @endrole
   @role('admin')
     <li class="nav-title">ADMIN</li>
+    <li class="nav-item"> 
+      <a class="nav-link {{ request()->routeIs('study_programs') ? 'active' : '' }}" href="{{ route('study_programs') }}">
+        <span class="nav-icon">
+          <i class="bi bi-mortarboard"></i>
+        </span> Study Program
+      </a>
+    </li>
+    <li class="nav-item"> 
+      <a class="nav-link {{ request()->routeIs('class') ? 'active' : '' }}" href="{{ route('class') }}">
+        <span class="nav-icon">
+          <i class="bi bi-calendar"></i>
+        </span> Class
+      </a>
+    </li>
     <li class="nav-group">
       <a class="nav-link nav-group-toggle" href="#">
         <span class="nav-icon">

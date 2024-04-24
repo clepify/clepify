@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\ClassController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudyProgramController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +40,9 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::get('/lecturers', [LecturerController::class, 'index'])->name('lecturers');
   Route::get('/students', [StudentController::class, 'index'])->name('students');
+
+  Route::get('/study_programs', [StudyProgramController::class, 'index'])->name('study_programs');
+  Route::get('/class', [ClassController::class, 'index'])->name('class');
 });
 
 // Route::fallback(function () {
