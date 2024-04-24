@@ -9,6 +9,10 @@ class StudyProgram extends Model
 {
   use HasFactory;
 
+  protected $fillable = ['name'];
+
+  
+
   public function class()
   {
     return $this->hasMany(ClassModel::class, 'study_program_id');

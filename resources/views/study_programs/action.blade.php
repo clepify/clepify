@@ -1,0 +1,17 @@
+<a class="btn btn-sm btn-warning dropdown rounded" href="{{ route('study_programs.edit', $id) }}">
+    <i class="bi bi-pencil mr-2" style="line-height: 1;"></i>
+    Edit
+</a>
+<button class="btn btn-sm btn-danger dropdown rounded text-white"
+    onclick="
+        event.preventDefault();
+        if (confirm('Study Program will be deleted, are you sure?')) {
+            document.getElementById('delete-{{ $id }}').submit();
+        }">
+    <i class="bi bi-trash mr-2" style="line-height: 1;"></i>
+    Delete
+</button>
+<form id="delete-{{ $id }}" class="d-none" action="{{ route('study_programs.destroy', $id) }}" method="POST">
+    @csrf
+    @method('DELETE')
+</form>

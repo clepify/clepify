@@ -15,6 +15,9 @@
       <span class="fs-5">Study Programs</span>
     </div>
     <div class="card-body">
+      <div class="mb-3">
+        <a href="{{ route('study_programs.create') }}" class="btn btn-primary">Add New Study Program</a>
+      </div>
       @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
           {{ session('success') }}
@@ -27,7 +30,7 @@
           <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
         </div>
       @endif
-      {{-- <livewire:lecturer-table /> --}}
+      <livewire:study-program-table />
     </div>
   </div>
 @endsection

@@ -87,7 +87,7 @@ final class StudentTable extends PowerGridComponent
         ->sortable()
         ->searchable(),
 
-      Column::make('NIP', 'username')
+      Column::make('NIM', 'username')
         ->sortable()
         ->searchable(),
 
