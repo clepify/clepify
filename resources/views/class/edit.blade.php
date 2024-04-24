@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Edit Class</div>
 
@@ -16,7 +16,7 @@
                                 <label for="name">Class Name</label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{ $class->name }}">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mt-3">
                                 <label for="study_program_id">Study Program</label>
                                 <select class="form-control" id="study_program_id" name="study_program_id">
                                     @foreach ($studyPrograms as $studyProgram)
@@ -26,7 +26,7 @@
                                     @endforeach
                                 </select>
                             <!-- Add more fields here if needed -->
-                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                            <button type="submit" class="btn btn-primary mt-3   ">Save Changes</button>
                         </form>
                     </div>
                 </div>

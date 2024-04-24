@@ -6,7 +6,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">Edit Study Program</div>
 
@@ -19,7 +19,7 @@
                                 <label for="name">Study Program Name</label>
                                 <input type="text" class="form-control" id="name" name="name" value="{{ $studyProgram->name }}" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Update</button>
+                            <button type="submit" class="btn btn-primary mt-2">Update</button>
                         </form>
                     </div>
                 </div>
