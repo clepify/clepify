@@ -16,8 +16,9 @@ class Letter extends Model
     'type',
     'category',
     'status',
-    'letter_document',
-    'support_document'
+    'letter_document',  
+    'support_document',
+    'feedback_message',
   ];
 
   public function scopeActive()

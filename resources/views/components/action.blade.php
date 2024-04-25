@@ -17,18 +17,14 @@
         <i class="bi bi-check2-circle text-primary mr-2" style="line-height: 1;"></i> Approve
       </button>
     </form>
-    <form id="reject-{{ $id }}" action="{{ route('letters.reject', $id) }}" method="POST">
+    <form id="reject-{{ $id }}" action="#" method="POST">
       @csrf
       @method('patch')
-      <button href="{{ route('letters.reject', $id) }}" class="dropdown-item" onclick="
-      event.preventDefault();
-      if (confirm('Letter will be rejected, are you sure?')) {
-      document.getElementById('reject-{{ $id }}').submit()
-      }">
-        <i class="bi bi-x-circle text-primary mr-2" style="line-height: 1;"></i> Reject
+      <button type="button" href="#" class="dropdown-item" data-coreui-toggle="modal" data-coreui-target="#rejectModal">
+        <i class="bi bi-x-circle text-danger mr-2" style="line-height: 1;"></i> Reject
       </button>
     </form>
-    @elseif ($status == 'Approved')
+    @elseif ($status == 'Approved' || $status == 'Rejected')
     <form id="archive-{{ $id }}" action="{{ route('letters.archive', $id) }}" method="POST">
       @csrf
       @method('patch')
@@ -75,3 +71,51 @@
     </div>
   </div>
 @endrole
+
+<div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rejectModal">Feedback Message</h5>
+        <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="reject-{{ $id }}" action="{{ route('letters.reject', $id) }}" method="POST">
+        @csrf
+        @method('patch')
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="feedback_message" class="col-form-label">Message:</label>
+            <textarea class="form-control" name="feedback_message" id="feedback_message"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Send message</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+@push('scripts')
+  <script>
+    const rejectModal = document.getElementById('rejectModal')
+    if (rejectModal) {
+      rejectModal.addEventListener('show.coreui.modal', event => {
+        // Button that triggered the modal
+        const button = event.relatedTarget
+        // Extract info from data-coreui-* attributes
+        const recipient = button.getAttribute('data-coreui-whatever')
+        // If necessary, you could initiate an Ajax request here
+        // and then do the updating in a callback.
+
+        // Update the modal's content.
+        const modalTitle = rejectModal.querySelector('.modal-title')
+        const modalBodyInput = rejectModal.querySelector('.modal-body input')
+
+        modalTitle.textContent = `New message to ${recipient}`
+        modalBodyInput.value = recipient
+      })
+    }
+  </script>
+@endpush

@@ -138,7 +138,7 @@ final class LetterTable extends PowerGridComponent
 
       Column::make('Action', 'action', 'id')
         ->headerAttribute('text-center')
-        ->contentClasses('text-center')
+        // ->contentClasses('text-center')
       // ->hidden(
       //   auth()->user()->role === 'student'
       // )

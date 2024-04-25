@@ -20,6 +20,7 @@ return new class extends Migration
       $table->string('status');
       $table->string('letter_document');
       $table->string('support_document')->nullable();
+      $table->string('feedback_message')->nullable();
       $table->timestamps();
 
       $table->foreign('student_id')->references('id')->on('users');

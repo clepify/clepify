@@ -113,11 +113,14 @@ class LetterController extends Controller
     return redirect()->back()->with('success', 'Letter approved successfully');
   }
 
-  public function reject(string $id)
+  public function reject(Request $request, string $id)
   {
     $letter = Letter::findOrFail($id);
     $old_status = $letter->status;
     $letter->status = 'Rejected';
+
+    $feedback_message = $request->input('feedback_message');
+    $letter->feedback_message = $feedback_message;
     $letter->save();
 
     LetterStatus::create([

@@ -10,5 +10,5 @@
 @endsection
 
 @section('content')
-Ini Message
+
 @endsection
