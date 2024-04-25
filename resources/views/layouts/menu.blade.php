@@ -7,6 +7,13 @@
     </a>
   </li>
   <li class="nav-item">
+    <a class="nav-link {{ request()->routeIs('messages.index') ? 'active' : '' }}" href="{{ route('messages.index') }}">
+      <span class="nav-icon">
+        <i class="bi bi-chat-left-text"></i>
+      </span> Message
+    </a>
+  </li>
+  <li class="nav-item">
     <a class="nav-link {{ request()->routeIs('letters.index') ? 'active' : '' }}" href="{{ route('letters.index') }}">
       <span class="nav-icon">
         <i class="bi bi-file-earmark"></i>

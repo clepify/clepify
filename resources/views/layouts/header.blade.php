@@ -31,17 +31,26 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ request()->routeIs('messages') ? 'fw-bold' : '' }}" href="{{ route('messages') }}">
+          <a class="nav-link {{ request()->routeIs('messages.index') ? 'fw-bold' : '' }}" href="{{ route('messages.index') }}">
             Message
           </a>
         </li>
       </ul>
     @endrole
     <ul class="header-nav ms-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">
+      <li class="nav-item dropdown">
+        <button class="btn btn-transparent" type="button" data-coreui-toggle="dropdown" aria-expanded="false">
           <i class="bi-bell-fill fs-5"></i>
-        </a>
+          <span class="position-absolute top-0 mt-2 start-100 translate-middle badge rounded-pill bg-danger">
+            4
+            <span class="visually-hidden">unread messages</span>
+          </span>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <a class="dropdown-item" href="#">
+            This is notification message
+          </a>
+        </ul>
       </li>
       <li class="nav-item dropdown mt-1">
         <button class="btn btn-transparent" type="button" data-coreui-toggle="dropdown" aria-expanded="false">

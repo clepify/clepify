@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\LetterController;
 use App\Http\Controllers\LecturerController;
 use App\Http\Controllers\StudentController;
@@ -32,7 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
 
   Route::get('/letter-template', [LetterController::class, 'letterTemplate'])->name('letters.letter-template');
 
-  Route::get('/messages', [DashboardController::class, 'index'])->name('messages');
+  Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
 
   Route::get('/archives', function () {
     return view('archives.index');
