@@ -67,7 +67,9 @@ final class StudentTable extends PowerGridComponent
       ->add('email')
       ->add('gender')
       ->add('phone')
-      ->add('created_at');
+      ->add('action', fn (User $model) => view('students.action', [
+        'id' => $model->id,
+      ]));
   }
 
   public function columns(): array
@@ -103,7 +105,9 @@ final class StudentTable extends PowerGridComponent
         ->sortable()
         ->searchable(),
 
-      Column::action('Action')
+      Column::make('Action', 'action', 'id')
+        ->headerAttribute('text-center')
+        ->contentClasses('text-center')
     ];
   }
 
@@ -111,33 +115,4 @@ final class StudentTable extends PowerGridComponent
   {
     return [];
   }
-
-  #[\Livewire\Attributes\On('edit')]
-  public function edit($rowId): void
-  {
-    $this->js('alert(' . $rowId . ')');
-  }
-
-  public function actions(User $row): array
-  {
-    return [
-      Button::add('edit')
-        ->slot('Edit: ' . $row->id)
-        ->id()
-        ->class('pg-btn-white dark:ring-pg-primary-600 dark:border-pg-primary-600 dark:hover:bg-pg-primary-700 dark:ring-offset-pg-primary-800 dark:text-pg-primary-300 dark:bg-pg-primary-700')
-        ->dispatch('edit', ['rowId' => $row->id])
-    ];
-  }
-
-  /*
-    public function actionRules($row): array
-    {
-       return [
-            // Hide button edit for ID 1
-            Rule::button('edit')
-                ->when(fn($row) => $row->id === 1)
-                ->hide(),
-        ];
-    }
-    */
 }

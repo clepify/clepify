@@ -15,6 +15,9 @@
       <span class="fs-5">Students</span>
     </div>
     <div class="card-body">
+      <div class="mb-3">
+        <a href="{{ route('students.create') }}" class="btn btn-primary">Add New Student</a>
+      </div>
       @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
           {{ session('success') }}
