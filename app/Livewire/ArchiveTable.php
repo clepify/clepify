@@ -76,11 +76,6 @@ final class ArchiveTable extends PowerGridComponent
       ]))
       ->add('type')
       ->add('category')
-      ->add('action', fn (Letter $model) => view('components.action', [
-        'id' => $model->id,
-        'status' => $model->status,
-        'date' => $model->created_at,
-      ]))
       ->add('status_formatted', fn (Letter $model) => view('components.status', [
         'status' => $model->status
       ]))
@@ -135,13 +130,6 @@ final class ArchiveTable extends PowerGridComponent
         ->contentClasses('text-center')
         ->sortable()
         ->searchable(),
-
-      Column::make('Action', 'action', 'id')
-        ->headerAttribute('text-center')
-        ->contentClasses('text-center')
-      // ->hidden(
-      //   auth()->user()->role === 'student'
-      // )
     ];
   }
 

@@ -1,31 +1,48 @@
 @role('admin', 'lecturer')
-  @if ($status == 'Pending')
-    <button id="approve" class="btn btn-sm btn-primary dropdown rounded"
-      onclick="
-                event.preventDefault();
-                if (confirm('Letter will be approved, are you sure?')) {
-                document.getElementById('approve-{{ $id }}').submit()
-                }">
-      Approve
-      <form id="approve-{{ $id }}" class="d-none" action="{{ route('letters.approve', $id) }}" method="POST">
-        @csrf
-        @method('patch')
-      </form>
-    </button>
-  @elseif ($status == 'Approved')
-    <button id="archive" class="btn btn-sm btn-primary dropdown rounded"
-      onclick="
-                event.preventDefault();
-                if (confirm('Letter will be archived, are you sure?')) {
-                document.getElementById('archive-{{ $id }}').submit()
-                }">
-      Archive
-      <form id="archive-{{ $id }}" class="d-none" action="{{ route('letters.archive', $id) }}" method="POST">
-        @csrf
-        @method('patch')
-      </form>
-    </button>
-  @endif
+<div class="btn-group dropleft">
+  <button type="button" class="btn btn-ghost-primary dropdown rounded" data-coreui-toggle="dropdown"
+    aria-expanded="false">
+    <i class="bi bi-three-dots-vertical"></i>
+  </button>
+  <div class="dropdown-menu" style="padding: 0.25rem 0;">
+    @if ($status == 'Pending')
+    <form id="approve-{{ $id }}" action="{{ route('letters.approve', $id) }}" method="POST">
+      @csrf
+      @method('patch')
+      <button href="{{ route('letters.approve', $id) }}" class="dropdown-item" onclick="
+      event.preventDefault();
+      if (confirm('Letter will be approved, are you sure?')) {
+      document.getElementById('approve-{{ $id }}').submit()
+      }">
+        <i class="bi bi-check2-circle text-primary mr-2" style="line-height: 1;"></i> Approve
+      </button>
+    </form>
+    <form id="reject-{{ $id }}" action="{{ route('letters.reject', $id) }}" method="POST">
+      @csrf
+      @method('patch')
+      <button href="{{ route('letters.reject', $id) }}" class="dropdown-item" onclick="
+      event.preventDefault();
+      if (confirm('Letter will be rejected, are you sure?')) {
+      document.getElementById('reject-{{ $id }}').submit()
+      }">
+        <i class="bi bi-x-circle text-primary mr-2" style="line-height: 1;"></i> Reject
+      </button>
+    </form>
+    @elseif ($status == 'Approved')
+    <form id="archive-{{ $id }}" action="{{ route('letters.archive', $id) }}" method="POST">
+      @csrf
+      @method('patch')
+      <button href="{{ route('letters.archive', $id) }}" class="dropdown-item" onclick="
+      event.preventDefault();
+      if (confirm('Letter will be archived, are you sure?')) {
+      document.getElementById('archive-{{ $id }}').submit()
+      }">
+        <i class="bi bi-archive text-primary mr-2" style="line-height: 1;"></i> Archive
+      </button>
+    </form>
+    @endif
+  </div>
+</div>
 @endrole
 @role('student')
   <div class="btn-group dropleft">
