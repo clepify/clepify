@@ -1,25 +1,35 @@
 @extends('layouts.app')
 
-@section('title', 'Add Lecturer')
+@section('title', 'Add Student')
 
 @section('content')
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header">Add New Lecturer</div>
+          <div class="card-header">Add New Student</div>
 
           <div class="card-body">
-            <form action="{{ route('lecturers.store') }}" method="POST">
+            <form action="{{ route('students.store') }}" method="POST">
               @csrf
 
               <div class="mb-3">
-                <label for="name" class="form-label">Lecturer Name</label>
+                <label for="class_id" class="form-label">Class</label>
+                <select class="form-select" id="class_id" name="class_id">
+                  <option selected disabled>Select Class</option>
+                  @foreach ($classes as $class)
+                    <option value="{{ $class->id }}">{{ $class->level }} - {{ $class->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="name" class="form-label">Student Name</label>
                 <input type="text" class="form-control" id="name" name="name">
               </div>
 
               <div class="mb-3">
-                <label for="username" class="form-label">NIP</label>
+                <label for="username" class="form-label">NIM</label>
                 <input type="text" class="form-control" id="username" name="username">
               </div>
 
@@ -46,7 +56,7 @@
                 <input type="text" class="form-control" id="phone" name="phone">
               </div>
 
-              <button type="submit" class="btn btn-primary">Add Lecturer</button>  
+              <button type="submit" class="btn btn-primary">Add Student</button>  
             </form>
           </div>
         </div>
