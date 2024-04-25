@@ -11,16 +11,16 @@ class ClassController extends Controller
     public function index()
     {
         // Return a view to list all classes
-        return view('class.index');
+        return view('classes.index');
     }
 
     public function create()
     {
         // Mengambil semua program studi untuk pilihan dropdown
         $studyPrograms = StudyProgram::all();
-        
+
         // Mengembalikan view untuk membuat kelas baru
-        return view('class.add', compact('studyPrograms'));
+        return view('classes.create', compact('studyPrograms'));
     }
 
     public function store(Request $request)
@@ -45,11 +45,11 @@ class ClassController extends Controller
     {
         // Mengambil semua program studi untuk pilihan dropdown
         $studyPrograms = StudyProgram::all();
-        
+
         // Mengembalikan view untuk mengedit kelas
-        return view('class.edit', compact('class', 'studyPrograms'));
+        return view('classes.edit', compact('class', 'studyPrograms'));
     }
-    
+
     public function update(Request $request, ClassModel $class)
     {
         // Validate the request

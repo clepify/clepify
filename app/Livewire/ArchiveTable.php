@@ -70,7 +70,7 @@ final class ArchiveTable extends PowerGridComponent
     return PowerGrid::fields()
       ->add('date_formatted', fn (Letter $model) => Carbon::parse($model->date)->format('d F Y'))
       ->add('student_name', fn (Letter $model) => $model->student->name)
-      ->add('student_details', fn (Letter $model) => $model->student->studentDetail->studyProgramAbbrievation() . ' - ' . $model->student->studentDetail->class)
+      ->add('student_details', fn (Letter $model) => $model->student->studentDetail->studyProgram->level . ' ' . $model->student->studentDetail->studyProgram->code . ' - ' . $model->student->studentDetail->class->name)
       ->add('lecturer_formatted', fn (Letter $model) => view('components.lecturers', [
         'lecturers' => $model->lecturer->pluck('name')->toArray(),
       ]))

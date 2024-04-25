@@ -15,7 +15,7 @@ class StudyProgramController extends Controller
 
   public function create()
   {
-      return view('study_programs.add');
+      return view('study_programs.create');
   }
 
   public function store(Request $request)

@@ -48,15 +48,15 @@ final class ClassTable extends PowerGridComponent
 
   public function fields(): PowerGridFields
   {
-      return PowerGrid::fields()
-          ->add('id')
-          ->add('name')
-          ->add('Program Studi', fn (ClassModel $model) => $model->studyProgram->name)
-          ->add('action', fn (ClassModel $model) => view('class.action', [
-              'id' => $model->id,
-          ]));
+    return PowerGrid::fields()
+      ->add('id')
+      ->add('name')
+      ->add('study_program', fn (ClassModel $model) => $model->studyProgram->name)
+      ->add('action', fn (ClassModel $model) => view('classes.action', [
+        'id' => $model->id,
+      ]));
   }
-  
+
 
   public function columns(): array
   {
@@ -66,7 +66,7 @@ final class ClassTable extends PowerGridComponent
         ->sortable()
         ->searchable(),
 
-        Column::make('Program Studi', 'Program Studi'),
+      Column::make('Study Program', 'study_program'),
 
       Column::make('Action', 'action', 'id')
         ->headerAttribute('text-center')

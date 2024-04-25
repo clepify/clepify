@@ -56,19 +56,23 @@ class UserSeeder extends Seeder
     ]);
 
     StudyProgram::create([
-      'name' => 'D4 Teknik Informatika'
+      'level' => 'D4',
+      'code' => 'TI',
+      'name' => 'Teknik Informatika'
     ]);
 
     StudyProgram::create([
-      'name' => 'D4 Sistem Informasi Bisnis'
+      'level' => 'D4',
+      'code' => 'SIB',
+      'name' => 'Sistem Informasi Bisnis'
     ]);
 
-    $studyProgramD4TI = StudyProgram::where('name', 'D4 Teknik Informatika')->first();
-    $studyProgramD4SIB = StudyProgram::where('name', 'D4 Sistem Informasi Bisnis')->first();
+    StudyProgram::where('name', 'D4 Teknik Informatika')->first();
+    $studyProgramD4SIB = StudyProgram::where('name', 'Sistem Informasi Bisnis')->first();
 
     $sib3a = ClassModel::create([
-        'name' => '3A',
-        'study_program_id' => $studyProgramD4SIB->id,
+      'name' => '3A',
+      'study_program_id' => $studyProgramD4SIB->id,
     ]);
 
     StudentDetail::create([

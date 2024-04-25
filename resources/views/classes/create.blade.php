@@ -23,7 +23,7 @@
                 <select class="form-select" id="study_program_id" name="study_program_id">
                   <option selected disabled>Select Study Program</option>
                   @foreach ($studyPrograms as $studyProgram)
-                    <option value="{{ $studyProgram->id }}">{{ $studyProgram->name }}</option>
+                    <option value="{{ $studyProgram->id }}">{{ $studyProgram->level }} - {{ $studyProgram->name }}</option>
                   @endforeach
                 </select>
               </div>

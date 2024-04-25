@@ -14,7 +14,18 @@
                         <!-- Form for creating a new study program -->
                         <form action="{{ route('study_programs.store') }}" method="POST">
                             @csrf
-                            <div class="form-group">
+                            <div class="mb-3">
+                                <label for="name">Level</label>
+                                <select class="form-select" id="level" name="level" required>
+                                    <option value="D4">D4</option>
+                                    <option value="D3">D3</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="code">Code</label>
+                                <input type="text" class="form-control" id="code" name="code" required>
+                            </div>
+                            <div class="mb-3">
                                 <label for="name">Study Program Name</label>
                                 <input type="text" class="form-control" id="name" name="name" required>
                             </div>

@@ -50,6 +50,8 @@ final class StudyProgramTable extends PowerGridComponent
   {
     return PowerGrid::fields()
       ->add('id')
+      ->add('level')
+      ->add('code')
       ->add('name')
       ->add('action', fn (StudyProgram $model) => view('study_programs.action', [
         'id' => $model->id,
@@ -60,6 +62,15 @@ final class StudyProgramTable extends PowerGridComponent
   {
     return [
       Column::make('Id', 'id'),
+
+      Column::make('Level', 'level')
+        ->sortable()
+        ->searchable(),
+
+      Column::make('Code', 'code')
+        ->sortable()
+        ->searchable(),
+
       Column::make('Name', 'name')
         ->sortable()
         ->searchable(),

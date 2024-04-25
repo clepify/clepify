@@ -9,9 +9,7 @@ class StudyProgram extends Model
 {
   use HasFactory;
 
-  protected $fillable = ['name'];
-
-  
+  protected $fillable = ['level', 'code', 'name'];
 
   public function class()
   {
