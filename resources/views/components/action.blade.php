@@ -47,9 +47,15 @@
       <i class="bi bi-three-dots-vertical"></i>
     </button>
     <div class="dropdown-menu" style="padding: 0.25rem 0;">
-      <a href="{{ route('letters.edit', $id) }}" class="dropdown-item">
-        <i class="bi bi-eye text-primary mr-2" style="line-height: 1;"></i> Detail
-      </a>
+      @if ($status == 'Rejected')
+        <form id="detail-{{ $id }}" action="#" method="POST">
+          @csrf
+          @method('patch')
+          <button type="button" href="#" class="dropdown-item" data-coreui-toggle="modal" data-coreui-target="#detailModal">
+            <i class="bi bi-eye text-primary mr-2" style="line-height: 1;"></i> Detail
+          </button>
+        </form>
+      @endif
       @if (now()->diffInMinutes($date) < 10 && $status == 'Pending')
         <a href="{{ route('letters.edit', $id) }}" class="dropdown-item">
           <i class="bi bi-pencil text-warning mr-2" style="line-height: 1;"></i> Edit
@@ -102,14 +108,8 @@
     const rejectModal = document.getElementById('rejectModal')
     if (rejectModal) {
       rejectModal.addEventListener('show.coreui.modal', event => {
-        // Button that triggered the modal
         const button = event.relatedTarget
-        // Extract info from data-coreui-* attributes
         const recipient = button.getAttribute('data-coreui-whatever')
-        // If necessary, you could initiate an Ajax request here
-        // and then do the updating in a callback.
-
-        // Update the modal's content.
         const modalTitle = rejectModal.querySelector('.modal-title')
         const modalBodyInput = rejectModal.querySelector('.modal-body input')
 
@@ -119,3 +119,27 @@
     }
   </script>
 @endpush
+
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="detailModal">Feedback Message</h5>
+        <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="reject-{{ $id }}" action="{{ route('letters.reject', $id) }}" method="POST">
+        @csrf
+        @method('patch')
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="feedback_message" class="col-form-label">Message:</label>
+            <input type="text" class="form-control" name="feedback_message" id="feedback_message" disabled value="{{ $feedback_message }}"></input>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Close</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -80,6 +80,7 @@ final class LetterTable extends PowerGridComponent
         'id' => $model->id,
         'status' => $model->status,
         'date' => $model->created_at,
+        'feedback_message' => $model->feedback_message,
       ]))
       ->add('status_formatted', fn (Letter $model) => view('components.status', [
         'status' => $model->status
