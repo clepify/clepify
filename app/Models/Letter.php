@@ -16,7 +16,7 @@ class Letter extends Model
     'type',
     'category',
     'status',
-    'letter_document',  
+    'letter_document',
     'support_document',
     'feedback_message',
   ];
@@ -29,6 +29,11 @@ class Letter extends Model
   public function scopeArchived()
   {
     return $this->where('status', 'Archived');
+  }
+
+  public function letterStatus()
+  {
+    return $this->hasMany(LetterStatus::class);
   }
 
   public function student()

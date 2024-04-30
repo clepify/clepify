@@ -53,8 +53,7 @@ final class LetterTable extends PowerGridComponent
     }
 
     return Letter::query()
-      ->where('student_id', $user->id);
-    // ->active();
+      ->where('student_id', $user->id)->with('letterStatus');
   }
 
   public function relationSearch(): array
@@ -83,7 +82,8 @@ final class LetterTable extends PowerGridComponent
         'feedback_message' => $model->feedback_message,
       ]))
       ->add('status_formatted', fn (Letter $model) => view('components.status', [
-        'status' => $model->status
+        'status' => $model->status,
+        'letter_status' => $model->letterStatus->pluck('status_before')->toArray(),
       ]))
       ->add('letter_formatted', fn (Letter $model) => view('components.letter-view', [
         'id' => $model->letter_document
