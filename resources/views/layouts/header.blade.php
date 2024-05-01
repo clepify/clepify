@@ -1,4 +1,5 @@
-<header class="header header-sticky @role('student') px-lg-5 @endrole mb-4">
+<header class="header header-sticky @role('student') px-lg-5 @endrole mb-4"
+    style="box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);">
     <div class="container-fluid position-relative">
         @role('admin', 'lecturer')
             <button class="header-toggler px-md-0 me-md-3" type="button"
@@ -13,7 +14,7 @@
             </button>
             <img src="{{ asset('/images/CLEPify.png') }}" alt="CLEPify Logo" width="100"
                 class="d-none d-sm-block me-auto">
-            <ul class="header-nav d-none d-lg-flex position-absolute gap-2"
+            <ul class="header-nav d-none d-lg-flex position-absolute gap-3"
                 style="left: 50%; transform: translate(-50%, 0);">
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('dashboard') ? 'fw-bold' : '' }}"

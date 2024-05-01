@@ -34,20 +34,37 @@
     @role('admin')
         <li class="nav-title">ADMIN</li>
         <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('study_programs') ? 'active' : '' }}"
-                href="{{ route('study_programs') }}">
+            <a class="nav-link {{ request()->routeIs('messages.index') ? 'active' : '' }}"
+                href="{{ route('messages.index') }}">
                 <span class="nav-icon">
-                    <i class="bi bi-mortarboard"></i>
-                </span> Study Program
+                    <i class="bi bi-clock-history left-text"></i>
+                </span> Activities
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('classes.index') ? 'active' : '' }}"
-                href="{{ route('classes.index') }}">
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="#">
                 <span class="nav-icon">
-                    <i class="bi bi-calendar"></i>
-                </span> Class
+                    <i class="bi bi-book"></i>
+                </span> Academic
             </a>
+            <ul class="nav-group-items">
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('study_programs.index') ? 'active' : '' }}"
+                        href="{{ route('study_programs.index') }}" target="_top">
+                        <span class="nav-icon">
+                            <i class="bi bi-mortarboard"></i>
+                        </span> Study Programs
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('classes.index') ? 'active' : '' }}"
+                        href="{{ route('classes.index') }}" target="_top">
+                        <span class="nav-icon">
+                            <i class="bi bi-calendar"></i>
+                        </span> Classes
+                    </a>
+                </li>
+            </ul>
         </li>
         <li class="nav-group">
             <a class="nav-link nav-group-toggle" href="#">
@@ -74,12 +91,29 @@
                 </li>
             </ul>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('reset') }}">
+        <li class="nav-group">
+            <a class="nav-link nav-group-toggle" href="#">
                 <span class="nav-icon">
-                    <i class="bi bi-arrow-counterclockwise"></i>
-                </span> Reset
+                    <i class="bi bi-gear"></i>
+                </span> Settings
             </a>
+            <ul class="nav-group-items">
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
+                        href="{{ route('dashboard') }}" target="_top">
+                        <span class="nav-icon">
+                            <i class="bi bi-gear"></i>
+                        </span> General
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('reset') }}">
+                        <span class="nav-icon">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                        </span> Reset
+                    </a>
+                </li>
+            </ul>
         </li>
     @endrole
 </ul>

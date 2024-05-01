@@ -68,6 +68,7 @@ final class LetterTable extends PowerGridComponent
     public function fields(): PowerGridFields
     {
         return PowerGrid::fields()
+            ->add('date_sent_formatted', fn (Letter $model) => Carbon::parse($model->created_at)->format('d F Y H:i'))
             ->add('date_formatted', fn (Letter $model) => Carbon::parse($model->date)->format('d F Y'))
             ->add('student_name', fn (Letter $model) => $model->student->name)
             ->add('student_details', fn (Letter $model) => $model->student->studentDetail->studyProgram->level . ' ' . $model->student->studentDetail->studyProgram->code . ' - ' . $model->student->studentDetail->class->name)
@@ -83,6 +84,7 @@ final class LetterTable extends PowerGridComponent
                 'date' => $model->created_at,
                 'feedback_message' => $model->feedback_message,
                 'letter_status' => $model->letterStatus->pluck('user_id')->toArray(),
+                'last_status' => $model->letterStatus->pluck('status_after')->toArray(),
             ]))
             ->add('status_formatted', fn (Letter $model) => view('components.status', [
                 'status' => $model->status,
@@ -99,7 +101,7 @@ final class LetterTable extends PowerGridComponent
     public function columns(): array
     {
         return [
-            Column::make('Date sent', 'date_formatted', 'date')
+            Column::make('Date Sent', 'date_sent_formatted', 'created_at')
                 ->sortable(),
 
             Column::make('Class', 'student_details')
@@ -117,6 +119,9 @@ final class LetterTable extends PowerGridComponent
                 ->hidden(
                     auth()->user()->role === 'lecturer'
                 ),
+
+            Column::make('Date', 'date_formatted', 'date')
+                ->sortable(),
 
             Column::make('Type', 'type')
                 ->sortable()
