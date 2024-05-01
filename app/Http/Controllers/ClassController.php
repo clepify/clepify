@@ -15,9 +15,9 @@ class ClassController extends Controller
 
     public function create()
     {
-        $studyPrograms = StudyProgram::all();
+        $study_programs = StudyProgram::all();
 
-        return view('classes.create', compact('studyPrograms'));
+        return view('classes.create', compact('study_programs'));
     }
 
     public function store(Request $request)
@@ -39,10 +39,7 @@ class ClassController extends Controller
 
     public function edit(ClassModel $class)
     {
-        // Mengambil semua program studi untuk pilihan dropdown
         $studyPrograms = StudyProgram::all();
-
-        // Mengembalikan view untuk mengedit kelas
         return view('classes.edit', compact('class', 'studyPrograms'));
     }
 

@@ -19,9 +19,9 @@
                                 <label for="study_program_id" class="form-label">Study Program</label>
                                 <select class="form-select" id="study_program_id" name="study_program_id" required>
                                     <option selected hidden>Select Study Program</option>
-                                    @foreach ($studyPrograms as $studyProgram)
-                                        <option value="{{ $studyProgram->id }}">{{ $studyProgram->level }} -
-                                            {{ $studyProgram->name }}</option>
+                                    @foreach ($study_programs as $study_program)
+                                        <option value="{{ $study_program->id }}">{{ $study_program->level }} -
+                                            {{ $study_program->name }}</option>
                                     @endforeach
                                 </select>
                             </div>

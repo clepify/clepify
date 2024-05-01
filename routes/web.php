@@ -1,14 +1,16 @@
 <?php
 
-use App\Http\Controllers\ClassController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\MessageController;
-use App\Http\Controllers\LetterController;
-use App\Http\Controllers\LecturerController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\StudyProgramController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\ClassController;
+use App\Http\Controllers\LetterController;
+use App\Http\Controllers\MessageController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\LecturerController;
+use App\Http\Controllers\TemplateController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StudyProgramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/letters/{id}/reject', [LetterController::class, 'reject'])->name('letters.reject');
     Route::patch('/letters/{id}/archive', [LetterController::class, 'archive'])->name('letters.archive');
 
+    Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
     Route::get('/letter-template', [LetterController::class, 'letterTemplate'])->name('letters.letter-template');
 
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
@@ -71,6 +74,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/study_programs/{studyProgram}', [StudyProgramController::class, 'update'])->name('study_programs.update');
     Route::delete('/study_programs/{studyProgram}', [StudyProgramController::class, 'destroy'])->name('study_programs.destroy');
 });
+
+Route::get('/reset', function () {
+    Artisan::call('migrate:refresh');
+    Artisan::call('db:seed');
+    return redirect()->back()->with('success', 'Database reset successfully.');
+})->name('reset');
 
 // Route::fallback(function () {
 //   return redirect()->route('dashboard');

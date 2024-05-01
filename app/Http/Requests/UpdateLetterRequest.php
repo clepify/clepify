@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreLetterRequest extends FormRequest
+class UpdateLetterRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -18,7 +18,7 @@ class StoreLetterRequest extends FormRequest
             'type' => ['required', 'string'],
             'category' => ['required', 'string'],
             'multi-select-lecturer' => ['required', 'array'],
-            'letter_document' => ['required', 'file', 'mimes:pdf', 'max:2048'],
+            'letter_document' => ['file', 'mimes:pdf', 'max:2048'],
             'support_document' => ['file', 'mimes:pdf', 'max:2048'],
         ];
     }

@@ -74,5 +74,12 @@
                 </li>
             </ul>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('reset') }}">
+                <span class="nav-icon">
+                    <i class="bi bi-arrow-counterclockwise"></i>
+                </span> Reset
+            </a>
+        </li>
     @endrole
 </ul>
