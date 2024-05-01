@@ -38,21 +38,16 @@ final class StudentTable extends PowerGridComponent
 
   public function datasource(): Builder
   {
-   return User::query()
-        ->select('users.*', 'study_programs.name as study_program_name', 'class.name as class_name')
-        ->join('student_details', function ($join) {
-            $join->on('users.id', '=', 'student_details.user_id')
-                ->join('study_programs', 'student_details.study_program_id', '=', 'study_programs.id')
-                ->join('class', 'student_details.class_id', '=', 'class.id');
-        })
-        ->where('role', 'student')
-        ->orderBy('users.id', 'asc');
+    return User::query()->students();
   }
 
   public function relationSearch(): array
   {
     return [
-      'studentDetail' => ['study_program', 'class']
+      'studentDetail' => [
+        'study_programs' => ['name'],
+        'class' => ['name'],
+      ],
     ];
   }
 

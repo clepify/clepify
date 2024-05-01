@@ -55,7 +55,12 @@ class User extends Authenticatable
 
   public function scopeStudents($query)
   {
-    return $query->where('role', 'student');
+    return $query->select('users.*', 'study_programs.name as study_program_name', 'class.name as class_name')
+      ->join('student_details', function ($join) {
+        $join->on('users.id', '=', 'student_details.user_id')
+          ->join('study_programs', 'student_details.study_program_id', '=', 'study_programs.id')
+          ->join('class', 'student_details.class_id', '=', 'class.id');
+      })->where('role', 'student');
   }
 
   public function studentDetail()

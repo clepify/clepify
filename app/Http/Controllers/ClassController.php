@@ -10,35 +10,31 @@ class ClassController extends Controller
 {
     public function index()
     {
-        // Return a view to list all classes
         return view('classes.index');
     }
 
     public function create()
     {
-        // Mengambil semua program studi untuk pilihan dropdown
         $studyPrograms = StudyProgram::all();
 
-        // Mengembalikan view untuk membuat kelas baru
         return view('classes.create', compact('studyPrograms'));
     }
 
     public function store(Request $request)
     {
-        // Validate the request
         $request->validate([
-            'name' => 'required|string|max:255',
+            'level' => 'required|integer|between:1,4',
+            'name' => 'required|string|max:1',
             'study_program_id' => 'required|exists:study_programs,id',
         ]);
 
-        // Create a new class
         ClassModel::create([
+            'level' => $request->level,
             'name' => $request->name,
             'study_program_id' => $request->study_program_id,
         ]);
 
-        // Redirect with success message
-        return redirect()->route('class')->with('success', 'Class created successfully.');
+        return redirect()->route('classes.index')->with('success', 'Class created successfully.');
     }
 
     public function edit(ClassModel $class)
@@ -65,15 +61,16 @@ class ClassController extends Controller
         ]);
 
         // Redirect with success message
-        return redirect()->route('class')->with('success', 'Class updated successfully.');
+        return redirect()->route('classes.index')->with('success', 'Class updated successfully.');
     }
 
     public function destroy(ClassModel $class)
     {
-        // Delete the class
-        $class->delete();
-
-        // Redirect with success message
-        return redirect()->route('class')->with('success', 'Class deleted successfully.');
+        try {
+            $class->delete();
+            return redirect()->route('classes.index')->with('success', 'Class deleted successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('classes.index')->with('error', 'Unable to delete class. Please make sure there are no related records.');
+        }
     }
 }

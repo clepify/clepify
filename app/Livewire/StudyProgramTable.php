@@ -18,71 +18,71 @@ use PowerComponents\LivewirePowerGrid\Traits\WithExport;
 
 final class StudyProgramTable extends PowerGridComponent
 {
-  use WithExport;
+    use WithExport;
 
-  // public bool $deferLoading = true;
+    // public bool $deferLoading = true;
 
-  public string $loadingComponent = 'components.loading';
+    public string $loadingComponent = 'components.loading';
 
-  public function setUp(): array
-  {
-    return [
-      Header::make()
-        ->showSearchInput()
-        ->withoutLoading(),
-      Footer::make()
-        ->showPerPage()
-        ->showRecordCount(),
-    ];
-  }
+    public function setUp(): array
+    {
+        return [
+            Header::make()
+                ->showSearchInput()
+                ->withoutLoading(),
+            Footer::make()
+                ->showPerPage()
+                ->showRecordCount(),
+        ];
+    }
 
-  public function datasource(): Builder
-  {
-    return StudyProgram::query();
-  }
+    public function datasource(): Builder
+    {
+        return StudyProgram::query();
+    }
 
-  public function relationSearch(): array
-  {
-    return [];
-  }
+    public function relationSearch(): array
+    {
+        return [];
+    }
 
-  public function fields(): PowerGridFields
-  {
-    return PowerGrid::fields()
-      ->add('id')
-      ->add('level')
-      ->add('code')
-      ->add('name')
-      ->add('action', fn (StudyProgram $model) => view('study_programs.action', [
-        'id' => $model->id,
-      ]));
-  }
+    public function fields(): PowerGridFields
+    {
+        return PowerGrid::fields()
+            ->add('id')
+            ->add('level')
+            ->add('code')
+            ->add('name')
+            ->add('action', fn (StudyProgram $model) => view('study_programs.action', [
+                'id' => $model->id,
+            ]));
+    }
 
-  public function columns(): array
-  {
-    return [
-      Column::make('Id', 'id'),
+    public function columns(): array
+    {
+        return [
+            Column::make('Id', 'id'),
 
-      Column::make('Level', 'level')
-        ->sortable()
-        ->searchable(),
+            Column::make('Level', 'level')
+                ->sortable()
+                ->searchable(),
 
-      Column::make('Code', 'code')
-        ->sortable()
-        ->searchable(),
+            Column::make('Code', 'code')
+                ->sortable()
+                ->searchable(),
 
-      Column::make('Name', 'name')
-        ->sortable()
-        ->searchable(),
+            Column::make('Name', 'name')
+                ->sortable()
+                ->searchable(),
 
-      Column::make('Action', 'action', 'id')
-        ->headerAttribute('text-center')
-        ->contentClasses('text-center')
-    ];
-  }
+            Column::make('Action', 'action', 'id')
+                ->headerAttribute('text-center')
+                ->contentClasses('text-center')
+        ];
+    }
 
-  public function filters(): array
-  {
-    return [];
-  }
+    public function filters(): array
+    {
+        return [];
+    }
 }

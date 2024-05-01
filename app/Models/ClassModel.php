@@ -13,7 +13,7 @@ class ClassModel extends Model
 
     protected $table = 'class';
 
-    protected $fillable = ['name', 'study_program_id']; // Kolom yang dapat diisi secara massal
+    protected $fillable = ['level', 'name', 'study_program_id'];
 
     public function studyProgram()
     {
@@ -22,6 +22,6 @@ class ClassModel extends Model
 
     public function students()
     {
-        return $this->hasMany(Student::class);
+        return $this->hasMany(Student::class, 'class_id');
     }
 }
