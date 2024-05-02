@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Letter;
+use App\Models\LetterSignature;
 use App\Models\LetterStatus;
 use App\Models\Lecturer;
 use Illuminate\Http\Request;
@@ -18,7 +19,18 @@ class LetterController extends Controller
      */
     public function index()
     {
-        return view('letters.index');
+        $user = auth()->user();
+
+        if ($user->role === 'admin') {
+            return view('letters.index', ['letters' => Letter::query()->active()->get()]);
+        } else {
+            return view('letters.index', ['letters' => Letter::query()
+                ->active()
+                ->whereHas('lecturer', function ($query) use ($user) {
+                    $query->where('lecturer_id', $user->id);
+                })
+                ->get()]);
+        }
     }
 
     /**
@@ -150,19 +162,45 @@ class LetterController extends Controller
         return redirect()->route('letters.index')->with('success', 'Letter updated successfully');
     }
 
-    public function approve(string $id)
+    public function approve(Request $request, string $id)
     {
-        $letter = Letter::findOrFail($id);
-        $old_status = $letter->status;
-        $letter->status = 'Approved';
-        $letter->save();
+        try {
+            DB::beginTransaction();
 
-        LetterStatus::create([
-            'letter_id' => $letter->id,
-            'user_id' => auth()->user()->id,
-            'status_before' => $old_status,
-            'status_after' => 'Approved',
-        ]);
+            $letter = Letter::findOrFail($id);
+            $old_status = $letter->status;
+            $letter->status = 'Approved';
+            $letter->save();
+
+            LetterStatus::create([
+                'letter_id' => $letter->id,
+                'user_id' => auth()->user()->id,
+                'status_before' => $old_status,
+                'status_after' => 'Approved',
+            ]);
+
+            if ($request->signature) {
+                $encoded_image = explode(",", $request->signature)[1];
+                $decoded_image = base64_decode($encoded_image);
+                $signature_filename = $letter->id . '_' . md5(uniqid()) . '.png';
+
+                $watermarked_image = $this->watermarkImage($decoded_image);
+
+                Storage::put('public/signatures/' . $signature_filename, $watermarked_image);
+
+                LetterSignature::create([
+                    'letter_id' => $letter->id,
+                    'user_id' => auth()->user()->id,
+                    'signature' => $signature_filename,
+                ]);
+            }
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            dd($e);
+            return redirect()->back()->with('error', 'An error occurred while approving the letter');
+        }
 
         return redirect()->back()->with('success', 'Letter approved successfully');
     }
@@ -238,5 +276,26 @@ class LetterController extends Controller
     public function letterTemplate()
     {
         return response()->download(public_path('documents/letter_template.docx'));
+    }
+
+    public function watermarkImage($decoded_image)
+    {
+        $image = imagecreatefromstring($decoded_image);
+        $date = date('Y-m-d H:i');
+        $text_color = imagecolorallocate($image, 255, 0, 0);
+        $font_path = public_path('fonts/arial.ttf');
+        $text_box = imagettfbbox(12, 0, $font_path, $date);
+        $text_width = $text_box[2] - $text_box[0];
+        $text_height = $text_box[1] - $text_box[7];
+        $x = imagesx($image) - $text_width - 10;
+        $y = imagesy($image) - $text_height - 10;
+        $transparent_color = imagecolorallocatealpha($image, 0, 0, 0, 127);
+        imagefilledrectangle($image, $x, $y, $x + $text_width, $y + $text_height, $transparent_color);
+        imagettftext($image, 12, 0, $x, $y, $text_color, $font_path, $date);
+        ob_start();
+        imagesavealpha($image, true);
+        imagepng($image);
+        $watermarked_image = ob_get_clean();
+        return $watermarked_image;
     }
 }

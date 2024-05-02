@@ -68,10 +68,12 @@
                 @method('patch')
                 <div class="modal-body text-start">
                     <p>Are you sure to approve this letter?</p>
+                    <canvas id="signature-{{ $id }}" class="border" width="350"></canvas>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" autofocus>Approve</button>
+                    <button id="clear-canvas-{{ $id }}" type="button" class="btn btn-dark">Reset</button>
+                    <button id="save-signature-{{ $id }}" type="submit" class="btn btn-primary"
+                        autofocus>Approve</button>
                 </div>
             </form>
         </div>
@@ -173,34 +175,37 @@
                             class="bi bi-{{ $last_status == 'Approved' ? 'check' : 'x' }}-circle-fill text-{{ $last_status == 'Approved' ? 'success' : 'danger' }}"></i>
                         Your letter has been {{ strtolower($last_status) }} by {{ $letter_archive }}
                     </div>
+                    @if ($last_status == 'Rejected')
+                        <div class="alert alert-info text-start" role="alert">
+                            {{ $feedback_message }}
+                        </div>
+                    @endif
+                @elseif ($status == 'Approved')
+                    @php
+                        $letter_approve = \App\Models\User::find(end($letter_status))->name;
+                    @endphp
+                    <div class="alert alert-success" role="alert">
+                        <i class="bi bi-check-circle-fill text-success"></i>
+                        Your letter has been approved by {{ $letter_approve }}
+                    </div>
+                @elseif ($status == 'Rejected')
+                    @php
+                        $letter_reject = \App\Models\User::find(end($letter_status))->name;
+                    @endphp
+                    <div class="alert alert-danger" role="alert">
+                        <i class="bi bi-x-circle-fill text-danger"></i>
+                        Your letter has been rejected by {{ $letter_reject }}
+                    </div>
+                    <div class="alert alert-info text-start" role="alert">
+                        {{ $feedback_message }}
+                    </div>
+                @endif
             </div>
         </div>
-    @elseif ($status == 'Approved')
-        @php
-            $letter_approve = \App\Models\User::find(end($letter_status))->name;
-        @endphp
-        <div class="alert alert-success" role="alert">
-            <i class="bi bi-check-circle-fill text-success"></i>
-            Your letter has been approved by {{ $letter_approve }}
-        </div>
-    @elseif ($status == 'Rejected')
-        @php
-            $letter_reject = \App\Models\User::find(end($letter_status))->name;
-        @endphp
-        <div class="alert alert-danger" role="alert">
-            <i class="bi bi-x-circle-fill text-danger"></i>
-            Your letter has been rejected by {{ $letter_reject }}
-        </div>
-        <div class="alert alert-info text-start" role="alert">
-            {{ $feedback_message }}
-        </div>
-        @endif
     </div>
     @if ($status == 'Rejected')
         <div class="modal-footer">
             <a href="{{ route('letters.create') }}" class="btn btn-primary">Send letter again</a>
         </div>
     @endif
-</div>
-</div>
 </div>

@@ -31,3 +31,49 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    @foreach ($letters as $letter)
+        <script>
+            window.setTimeout(function() {
+                setupSignaturePad{{ $letter->id }}();
+                document.querySelector("#clear-canvas-{{ $letter->id }}").addEventListener("click",
+                    clearSignaturePad{{ $letter->id }});
+
+                document.querySelector("#save-signature-{{ $letter->id }}").addEventListener("click",
+                    saveSignature{{ $letter->id }});
+            }, 1000);
+
+            let signaturePad{{ $letter->id }};
+            let canvas{{ $letter->id }};
+
+            function setupSignaturePad{{ $letter->id }}() {
+                canvas{{ $letter->id }} = document.querySelector("#signature-{{ $letter->id }}");
+
+                signaturePad{{ $letter->id }} = new SignaturePad(canvas{{ $letter->id }}, {
+                    maxWidth: 3,
+                });
+            }
+
+            function clearSignaturePad{{ $letter->id }}() {
+                signaturePad{{ $letter->id }}.clear();
+            }
+
+            function saveSignature{{ $letter->id }}() {
+                const form = document.querySelector("#approve-{{ $letter->id }}");
+                if (signaturePad{{ $letter->id }}.isEmpty()) {
+                    console.log("Please provide a signature first.");
+                } else {
+                    const signature{{ $letter->id }} = signaturePad{{ $letter->id }}.toDataURL();
+
+                    const input = document.createElement("input");
+                    input.setAttribute("type", "hidden");
+                    input.setAttribute("name", "signature");
+                    input.setAttribute("value", signature{{ $letter->id }});
+
+                    form.appendChild(input);
+                }
+            }
+        </script>
+    @endforeach
+@endpush

@@ -45,19 +45,16 @@ class ClassController extends Controller
 
     public function update(Request $request, ClassModel $class)
     {
-        // Validate the request
         $request->validate([
             'name' => 'required|string|max:255',
             'study_program_id' => 'required|exists:study_programs,id',
         ]);
 
-        // Update the class
         $class->update([
             'name' => $request->name,
             'study_program_id' => $request->study_program_id,
         ]);
 
-        // Redirect with success message
         return redirect()->route('classes.index')->with('success', 'Class updated successfully.');
     }
 
