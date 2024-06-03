@@ -85,6 +85,7 @@ final class LetterTable extends PowerGridComponent
                 'feedback_message' => $model->feedback_message,
                 'letter_status' => $model->letterStatus->pluck('user_id')->toArray(),
                 'last_status' => $model->letterStatus->pluck('status_after')->toArray(),
+                'signature' => $model->letterSignature->pluck('signature')->toArray(),
             ]))
             ->add('status_formatted', fn (Letter $model) => view('components.status', [
                 'status' => $model->status,
@@ -102,6 +103,7 @@ final class LetterTable extends PowerGridComponent
     {
         return [
             Column::make('Date Sent', 'date_sent_formatted', 'created_at')
+                ->searchable()
                 ->sortable(),
 
             Column::make('Class', 'student_details')
@@ -121,6 +123,7 @@ final class LetterTable extends PowerGridComponent
                 ),
 
             Column::make('Date', 'date_formatted', 'date')
+                ->searchable()
                 ->sortable(),
 
             Column::make('Type', 'type')

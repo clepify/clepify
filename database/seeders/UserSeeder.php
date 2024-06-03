@@ -2,10 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\StudentDetail;
 use App\Models\User;
-use App\Models\ClassModel;
-use App\Models\StudyProgram;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -53,33 +50,6 @@ class UserSeeder extends Seeder
             'role' => 'student',
             'gender' => 'male',
             'phone' => '081234567890',
-        ]);
-
-        StudyProgram::create([
-            'level' => 'D4',
-            'code' => 'TI',
-            'name' => 'Teknik Informatika'
-        ]);
-
-        StudyProgram::create([
-            'level' => 'D4',
-            'code' => 'SIB',
-            'name' => 'Sistem Informasi Bisnis'
-        ]);
-
-        StudyProgram::where('name', 'D4 Teknik Informatika')->first();
-        $studyProgramD4SIB = StudyProgram::where('name', 'Sistem Informasi Bisnis')->first();
-
-        $sib3a = ClassModel::create([
-            'level' => '3',
-            'name' => 'A',
-            'study_program_id' => $studyProgramD4SIB->id,
-        ]);
-
-        StudentDetail::create([
-            'user_id' => 4,
-            'study_program_id' => $studyProgramD4SIB->id,
-            'class_id' => $sib3a->id,
         ]);
     }
 }

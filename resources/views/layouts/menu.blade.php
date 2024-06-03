@@ -7,19 +7,18 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('messages.index') ? 'active' : '' }}"
-            href="{{ route('messages.index') }}">
-            <span class="nav-icon">
-                <i class="bi bi-chat-left-text"></i>
-            </span> Message
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('letters.index') ? 'active' : '' }}"
-            href="{{ route('letters.index') }}">
+        <a class="nav-link {{ request()->routeIs('letters.index') ? 'active' : '' }}" href="{{ route('letters.index') }}">
             <span class="nav-icon">
                 <i class="bi bi-file-earmark"></i>
             </span> Letters
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {{ request()->routeIs('templates.index') ? 'active' : '' }}"
+            href="{{ route('templates.index') }}">
+            <span class="nav-icon">
+                <i class="bi bi-file-earmark-post"></i>
+            </span> Template
         </a>
     </li>
     @role('admin', 'lecturer')
@@ -33,14 +32,6 @@
     @endrole
     @role('admin')
         <li class="nav-title">ADMIN</li>
-        <li class="nav-item">
-            <a class="nav-link {{ request()->routeIs('messages.index') ? 'active' : '' }}"
-                href="{{ route('messages.index') }}">
-                <span class="nav-icon">
-                    <i class="bi bi-clock-history left-text"></i>
-                </span> Activities
-            </a>
-        </li>
         <li class="nav-group">
             <a class="nav-link nav-group-toggle" href="#">
                 <span class="nav-icon">
@@ -87,30 +78,6 @@
                         <span class="nav-icon">
                             <i class="bi bi-person"></i>
                         </span> Students
-                    </a>
-                </li>
-            </ul>
-        </li>
-        <li class="nav-group">
-            <a class="nav-link nav-group-toggle" href="#">
-                <span class="nav-icon">
-                    <i class="bi bi-gear"></i>
-                </span> Settings
-            </a>
-            <ul class="nav-group-items">
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}"
-                        href="{{ route('dashboard') }}" target="_top">
-                        <span class="nav-icon">
-                            <i class="bi bi-gear"></i>
-                        </span> General
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('reset') }}">
-                        <span class="nav-icon">
-                            <i class="bi bi-arrow-counterclockwise"></i>
-                        </span> Reset
                     </a>
                 </li>
             </ul>

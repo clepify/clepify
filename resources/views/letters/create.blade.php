@@ -70,12 +70,16 @@
                                 </select>
                             </div>
                             <div class="col-12 mb-3">
-                                <label for="letter_document" class="form-label">Letter Document</label>
+                                <label for="letter_document" class="form-label">
+                                    Letter Document <small class="text-secondary">(PDF only, max 2MB)</small>
+                                </label>
                                 <input class="form-control" type="file" id="letter_document" name="letter_document"
                                     accept="application/pdf" required>
                             </div>
                             <div class="col-12 mb-3">
-                                <label for="support_document" class="form-label">Support Document</label>
+                                <label for="support_document" class="form-label">
+                                    Support Document <small class="text-secondary">(PDF only, max 2MB)</small>
+                                </label>
                                 <input class="form-control" type="file" id="support_document" name="support_document"
                                     accept="application/pdf">
                             </div>

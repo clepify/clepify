@@ -17,8 +17,10 @@
                             <div class="mb-3">
                                 <label for="name">Level</label>
                                 <select class="form-select" id="level" name="level" required>
+                                    <option value="S2">S2</option>
                                     <option value="D4">D4</option>
                                     <option value="D3">D3</option>
+                                    <option value="D2">D2</option>
                                 </select>
                             </div>
                             <div class="mb-3">

@@ -67,7 +67,9 @@
                 @csrf
                 @method('patch')
                 <div class="modal-body text-start">
-                    <p>Are you sure to approve this letter?</p>
+                    <p>
+                        Sign your signature below to approve this letter
+                    </p>
                     <canvas id="signature-{{ $id }}" class="border" width="350"></canvas>
                 </div>
                 <div class="modal-footer">
@@ -188,6 +190,10 @@
                         <i class="bi bi-check-circle-fill text-success"></i>
                         Your letter has been approved by {{ $letter_approve }}
                     </div>
+                    @if (isset($signature[0]))
+                        <a href="{{ 'storage/signatures/' . $signature[0] }}" class="btn btn-primary"
+                            download>Download Signature</a>
+                    @endif
                 @elseif ($status == 'Rejected')
                     @php
                         $letter_reject = \App\Models\User::find(end($letter_status))->name;
@@ -201,11 +207,11 @@
                     </div>
                 @endif
             </div>
+            @if ($status == 'Rejected')
+                <div class="modal-footer">
+                    <a href="{{ route('letters.create') }}" class="btn btn-primary">Send letter again</a>
+                </div>
+            @endif
         </div>
     </div>
-    @if ($status == 'Rejected')
-        <div class="modal-footer">
-            <a href="{{ route('letters.create') }}" class="btn btn-primary">Send letter again</a>
-        </div>
-    @endif
 </div>

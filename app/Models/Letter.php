@@ -36,6 +36,11 @@ class Letter extends Model
         return $this->hasMany(LetterStatus::class, 'letter_id');
     }
 
+    public function letterSignature()
+    {
+        return $this->hasMany(LetterSignature::class, 'letter_id');
+    }
+
     public function student()
     {
         return $this->belongsTo(User::class, 'student_id');
