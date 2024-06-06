@@ -37,7 +37,7 @@
                                             <div class="card bg-primary mb-4 text-white">
                                                 <div class="card-body">
                                                     <div class="fs-4 fw-semibold">{{ $class->name }}</div>
-                                                    <div>Letter count: {{ $class->students->count() }}</div>
+                                                    <div>Letter count: {{ $class->letters->count() }}</div>
                                                     <div>Student count: {{ $class->students->count() }}</div>
                                                     <small
                                                         class="text-medium-emphasis-inverse">{{ $class->dpa_name }}</small>

@@ -24,4 +24,9 @@ class ClassModel extends Model
     {
         return $this->hasMany(Student::class, 'class_id');
     }
+
+    public function letters()
+    {
+        return $this->hasManyThrough(Letter::class, Student::class, 'class_id', 'student_id', 'id', 'user_id');
+    }
 }
