@@ -61,21 +61,24 @@ class LetterController extends Controller
             $support_document_filename = basename($support_document_path);
         }
 
+        $lecturers = $request->input('multi-select-lecturer');
+
         try {
             DB::beginTransaction();
 
-            Letter::create([
-                'student_id' => $user->id,
-                'date' => $request->date,
-                'type' => $request->type,
-                'category' => $request->category,
-                'status' => 'Pending',
-                'letter_document' => $letter_filename,
-                'support_document' => $support_document_filename,
-            ]);
+            foreach ($lecturers as $lecturer) {
+                $letter = Letter::create([
+                    'student_id' => $user->id,
+                    'date' => $request->date,
+                    'type' => $request->type,
+                    'category' => $request->category,
+                    'status' => 'Pending',
+                    'letter_document' => $letter_filename,
+                    'support_document' => $support_document_filename,
+                ]);
 
-            $letter = Letter::latest()->first();
-            $letter->lecturer()->attach($request->input('multi-select-lecturer'));
+                $letter->lecturer()->attach($lecturer);
+            }
 
             DB::commit();
         } catch (\Exception $e) {

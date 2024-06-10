@@ -43,7 +43,7 @@
                                     disabled style="background-color: #d8dbe0 !important;">
                             </div>
                             <div class="col-12 col-lg-6 mb-3">
-                                <label for="date" class="form-label">Date</label>
+                                <label for="date" class="form-label">Date of Letter</label>
                                 <input type="date" class="form-control" id="date" name="date"
                                     value="{{ old('date') ? old('date') : date('Y-m-d') }}" required>
                             </div>

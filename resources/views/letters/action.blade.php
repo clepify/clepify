@@ -68,7 +68,7 @@
                 @method('patch')
                 <div class="modal-body text-start">
                     <p>
-                        Sign your signature below to approve this letter
+                        Sign your initial below to approve this letter
                     </p>
                     <canvas id="signature-{{ $id }}" class="border" width="350"></canvas>
                 </div>
@@ -153,7 +153,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="detailModal-{{ $id }}" tabindex="-1"
+<div class="modal modal-lg fade" id="detailModal-{{ $id }}" tabindex="-1"
     aria-labelledby="detailModalLabel-{{ $id }}" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

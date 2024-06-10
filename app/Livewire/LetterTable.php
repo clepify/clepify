@@ -122,7 +122,7 @@ final class LetterTable extends PowerGridComponent
                     auth()->user()->role === 'lecturer'
                 ),
 
-            Column::make('Date', 'date_formatted', 'date')
+            Column::make('Date of Letter', 'date_formatted', 'date')
                 ->searchable()
                 ->sortable(),
 
