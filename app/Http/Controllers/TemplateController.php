@@ -23,7 +23,7 @@ class TemplateController extends Controller
     {
         $request->validate([
             'type' => 'required|string',
-            'category' => 'required|string',
+            'description' => 'required|string',
         ]);
 
         $document = $request->file('document');
@@ -31,33 +31,11 @@ class TemplateController extends Controller
 
         Template::create([
             'type' => $request->type,
-            'category' => $request->category,
+            'description' => $request->description,
             'document' => $document->getClientOriginalName(),
         ]);
 
         return redirect()->route('templates.index')->with('success', 'Template created successfully.');
-    }
-
-    public function edit(Template $template)
-    {
-        return view('templates.edit', compact('template'));
-    }
-
-    public function update(Request $request, Template $template)
-    {
-        $request->validate([
-            'type' => 'required|string',
-            'category' => 'required|string',
-            'document' => 'required|string',
-        ]);
-
-        $template->update([
-            'type' => $request->type,
-            'category' => $request->category,
-            'document' => $request->document,
-        ]);
-
-        return redirect()->route('templates.index')->with('success', 'Template updated successfully.');
     }
 
     public function destroy(Template $template)

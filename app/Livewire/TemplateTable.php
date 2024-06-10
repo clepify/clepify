@@ -67,7 +67,7 @@ final class TemplateTable extends PowerGridComponent
             Column::make('Type', 'type')
                 ->searchable(),
 
-            Column::make('Category', 'category')
+            Column::make('Description', 'description')
                 ->searchable(),
 
             Column::make('Document', 'document')

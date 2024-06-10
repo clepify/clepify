@@ -43,7 +43,7 @@
                         {{-- <img src="{{ $template->image }}" class="card-img-top" alt="{{ $template->name }}"> --}}
                         <div class="card-body">
                             <p class="card-text">Type: {{ $template->type }}</p>
-                            <p class="card-text">Category: {{ $template->category }}</p>
+                            <p class="card-text">{{ $template->description }}</p>
                             <a href="{{ 'storage/templates/' . $template->document }}" class="btn btn-primary">Download</a>
                         </div>
                     </div>

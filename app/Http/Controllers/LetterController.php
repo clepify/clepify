@@ -182,6 +182,11 @@ class LetterController extends Controller
                 'status_after' => 'Approved',
             ]);
 
+            if ($request->input('feedback_message')) {
+                $letter->feedback_message = $request->input('feedback_message');
+                $letter->save();
+            }
+
             if ($request->signature) {
                 $encoded_image = explode(",", $request->signature)[1];
                 $decoded_image = base64_decode($encoded_image);

@@ -25,9 +25,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="category" class="form-label">Category</label>
-                                <select class="form-select" id="category" name="category" required disabled>
-                                </select>
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control" id="description" name="description" required></textarea>
                             </div>
 
                             <div class="mb-3">
@@ -46,32 +45,3 @@
         </div>
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        const type = document.querySelector('#type');
-        const category = document.querySelector('#category');
-        const absence = ['Sick', 'Permission', 'Dispensation', 'Other'];
-        const request = ['Recommendation', 'Certificate', 'Transcript', 'Other'];
-
-        type.addEventListener('change', function() {
-            category.innerHTML = '';
-            category.disabled = false;
-            if (type.value === 'Absence') {
-                absence.forEach(function(item) {
-                    const option = document.createElement('option');
-                    option.value = item;
-                    option.text = item;
-                    category.appendChild(option);
-                });
-            } else if (type.value === 'Request') {
-                request.forEach(function(item) {
-                    const option = document.createElement('option');
-                    option.value = item;
-                    option.text = item;
-                    category.appendChild(option);
-                });
-            }
-        });
-    </script>
-@endpush

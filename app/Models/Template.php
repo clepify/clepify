@@ -11,7 +11,7 @@ class Template extends Model
 
     protected $fillable = [
         'type',
-        'category',
+        'description',
         'document',
     ];
 }

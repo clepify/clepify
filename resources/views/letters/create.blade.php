@@ -57,9 +57,10 @@
                             </div>
                             <div class="col-12 col-lg-6 mb-3">
                                 <label for="category" class="form-label">Category</label>
-                                <select class="form-select" id="category" name="category" required disabled>
+                                <select class="form-select" id="category" name="category" disabled required>
                                 </select>
                             </div>
+
                             <div class="col-12 mb-3">
                                 <label for="lecturer[]" class="form-label">Lecturer(s)</label>
                                 <select class="form-multi-select" id="lecturer[]" data-coreui-search="true"
@@ -107,24 +108,23 @@
         const request = ['Recommendation', 'Certificate', 'Transcript', 'Other'];
 
         type.addEventListener('change', function() {
-            category.innerHTML = '';
-            category.disabled = false;
+            const categoryContainer = document.querySelector('#category').parentElement;
+
             if (type.value === 'Absence') {
-                absence.forEach(function(item) {
-                    const option = document.createElement('option');
-                    option.value = item;
-                    option.text = item;
-                    category.appendChild(option);
-                });
+                categoryContainer.innerHTML = `
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" name="category" required>
+                ${absence.map(item => `<option value="${item}">${item}</option>`).join('')}
+            </select>
+        `;
             } else if (type.value === 'Request') {
-                request.forEach(function(item) {
-                    const option = document.createElement('option');
-                    option.value = item;
-                    option.text = item;
-                    category.appendChild(option);
-                });
+                categoryContainer.innerHTML = `
+            <label for="category" class="form-label">Category</label>
+            <input type="text" class="form-control" id="category" name="category" placeholder="Fill in as needed" required>
+        `;
             }
         });
+
 
         const letterForm = document.querySelector('#letter-form');
         const letterButton = letterForm.querySelector('button[type="submit"]');

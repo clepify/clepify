@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('templates', function (Blueprint $table) {
             $table->id();
             $table->string('type');
-            $table->string('category');
+            $table->string('description');
             $table->string('document');
             $table->timestamps();
         });

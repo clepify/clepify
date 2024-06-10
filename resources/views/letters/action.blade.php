@@ -66,12 +66,21 @@
             <form id="approve-{{ $id }}" action="{{ route('letters.approve', $id) }}" method="POST">
                 @csrf
                 @method('patch')
-                <div class="modal-body text-start">
-                    <p>
-                        Sign your initial below to approve this letter
-                    </p>
-                    <canvas id="signature-{{ $id }}" class="border" width="350"></canvas>
-                </div>
+                @if ($type == 'Request')
+                    <div class="modal-body text-start">
+                        <div class="">
+                            <label for="feedback_message" class="form-label">Feedback Message</label>
+                            <textarea class="form-control" name="feedback_message" id="feedback_message"></textarea>
+                        </div>
+                    </div>
+                @elseif ($type == 'Absence')
+                    <div class="modal-body text-start">
+                        <p>
+                            Sign your initial below to approve this letter
+                        </p>
+                        <canvas id="signature-{{ $id }}" class="border" width="350"></canvas>
+                    </div>
+                @endif
                 <div class="modal-footer">
                     <button id="clear-canvas-{{ $id }}" type="button" class="btn btn-dark">Reset</button>
                     <button id="save-signature-{{ $id }}" type="submit" class="btn btn-primary"
@@ -193,6 +202,11 @@
                     @if (isset($signature[0]))
                         <a href="{{ 'storage/signatures/' . $signature[0] }}" class="btn btn-primary"
                             download>Download Signature</a>
+                    @endif
+                    @if ($type == 'Request')
+                        <div class="alert alert-info text-start" role="alert">
+                            {{ $feedback_message }}
+                        </div>
                     @endif
                 @elseif ($status == 'Rejected')
                     @php

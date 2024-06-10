@@ -81,6 +81,7 @@ final class LetterTable extends PowerGridComponent
                 'letter_count' => $model->letterStatus->count(),
                 'id' => $model->id,
                 'status' => $model->status,
+                'type' => $model->type,
                 'date' => $model->created_at,
                 'feedback_message' => $model->feedback_message,
                 'letter_status' => $model->letterStatus->pluck('user_id')->toArray(),

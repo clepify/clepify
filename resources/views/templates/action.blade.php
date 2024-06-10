@@ -1,7 +1,3 @@
-<a class="btn btn-sm btn-warning dropdown rounded" href="{{ route('templates.edit', $id) }}">
-    <i class="bi bi-pencil mr-2" style="line-height: 1;"></i>
-    Edit
-</a>
 <button class="btn btn-sm btn-danger dropdown rounded text-white"
     onclick="
                 event.preventDefault();

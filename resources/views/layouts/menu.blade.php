@@ -13,14 +13,6 @@
             </span> Letters
         </a>
     </li>
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('templates.index') ? 'active' : '' }}"
-            href="{{ route('templates.index') }}">
-            <span class="nav-icon">
-                <i class="bi bi-file-earmark-post"></i>
-            </span> Template
-        </a>
-    </li>
     @role('admin', 'lecturer')
         <li class="nav-item">
             <a class="nav-link {{ request()->routeIs('archives') ? 'active' : '' }}" href="{{ route('archives') }}">
@@ -31,6 +23,14 @@
         </li>
     @endrole
     @role('admin')
+        <li class="nav-item">
+            <a class="nav-link {{ request()->routeIs('templates.index') ? 'active' : '' }}"
+                href="{{ route('templates.index') }}">
+                <span class="nav-icon">
+                    <i class="bi bi-file-earmark-post"></i>
+                </span> Template
+            </a>
+        </li>
         <li class="nav-title">ADMIN</li>
         <li class="nav-group">
             <a class="nav-link nav-group-toggle" href="#">

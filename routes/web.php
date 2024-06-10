@@ -77,8 +77,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
     Route::get('/templates/create', [TemplateController::class, 'create'])->name('templates.create');
     Route::post('/templates', [TemplateController::class, 'store'])->name('templates.store');
-    Route::get('/templates/{template}/edit', [TemplateController::class, 'edit'])->name('templates.edit');
-    Route::put('/templates/{template}', [TemplateController::class, 'update'])->name('templates.update');
     Route::delete('/templates/{template}', [TemplateController::class, 'destroy'])->name('templates.destroy');
 });
 
