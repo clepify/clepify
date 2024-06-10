@@ -13,6 +13,8 @@
                         <form action="{{ route('students.store') }}" method="POST">
                             @csrf
 
+                            @include('components.alert')
+
                             <div class="mb-3">
                                 <label for="class_id" class="form-label">Class</label>
                                 <select class="form-select" id="class_id" name="class_id">

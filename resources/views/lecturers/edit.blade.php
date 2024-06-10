@@ -13,6 +13,9 @@
                         <form action="{{ route('lecturers.update', $lecturer->id) }}" method="POST">
                             @csrf
                             @method('PUT')
+
+                            @include('components.alert')
+
                             <div class="mb-3">
                                 <label for="name" class="form-label">Lecturer Name</label>
                                 <input type="text" class="form-control" id="name" name="name"

@@ -46,11 +46,13 @@ class ClassController extends Controller
     public function update(Request $request, ClassModel $class)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'level' => 'required|integer|between:1,4',
+            'name' => 'required|string|max:1',
             'study_program_id' => 'required|exists:study_programs,id',
         ]);
 
         $class->update([
+            'level' => $request->level,
             'name' => $request->name,
             'study_program_id' => $request->study_program_id,
         ]);

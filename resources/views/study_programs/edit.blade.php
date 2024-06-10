@@ -14,6 +14,9 @@
                         <form action="{{ route('study_programs.update', $studyProgram->id) }}" method="POST">
                             @csrf
                             @method('PUT')
+
+                            @include('components.alert')
+
                             <div class="mb-3">
                                 <label for="level">Level</label>
                                 <select class="form-select" id="level" name="level" required>

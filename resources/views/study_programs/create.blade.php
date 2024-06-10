@@ -14,6 +14,9 @@
                         <!-- Form for creating a new study program -->
                         <form action="{{ route('study_programs.store') }}" method="POST">
                             @csrf
+
+                            @include('components.alert')
+
                             <div class="mb-3">
                                 <label for="name">Level</label>
                                 <select class="form-select" id="level" name="level" required>
