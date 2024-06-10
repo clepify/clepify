@@ -65,7 +65,7 @@
                     <li>
                         <h6 class="dropdown-header bg-light">Account</h6>
                     </li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="/profile">
                         <i class="bi-person me-2"></i> Profile
                     </a>
                     <a class="dropdown-item" href="#"

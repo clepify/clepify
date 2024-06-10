@@ -27,6 +27,9 @@ Auth::routes(['register' => false]);
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/profile', [DashboardController::class, 'profile'])->name('profile');
+    Route::patch('/profile', [DashboardController::class, 'updateProfile'])->name('profile.update');
+    Route::patch('/profile/password', [DashboardController::class, 'updatePassword'])->name('profile.password');
 
     Route::resource('letters', LetterController::class);
 
@@ -80,11 +83,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/templates/{template}', [TemplateController::class, 'destroy'])->name('templates.destroy');
 });
 
-Route::get('/reset', function () {
-    Artisan::call('migrate:refresh');
-    Artisan::call('db:seed');
-    return redirect()->back()->with('success', 'Database reset successfully.');
-})->name('reset');
+// Route::get('/reset', function () {
+//     Artisan::call('migrate:refresh');
+//     Artisan::call('db:seed');
+//     return redirect()->back()->with('success', 'Database reset successfully.');
+// })->name('reset');
 
 // Route::fallback(function () {
 //   return redirect()->route('dashboard');
