@@ -76,6 +76,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/study_programs/{studyProgram}/edit', [StudyProgramController::class, 'edit'])->name('study_programs.edit');
     Route::put('/study_programs/{studyProgram}', [StudyProgramController::class, 'update'])->name('study_programs.update');
     Route::delete('/study_programs/{studyProgram}', [StudyProgramController::class, 'destroy'])->name('study_programs.destroy');
+    Route::post('import-study-programs', [StudyProgramController::class, 'import'])->name('study_programs.import');
 
     Route::get('/templates', [TemplateController::class, 'index'])->name('templates.index');
     Route::get('/templates/create', [TemplateController::class, 'create'])->name('templates.create');

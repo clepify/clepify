@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\StudyProgram;
+use App\Imports\StudyProgramsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class StudyProgramController extends Controller
@@ -27,6 +29,17 @@ class StudyProgramController extends Controller
         StudyProgram::create($request->all());
 
         return redirect()->route('study_programs.index')->with('success', 'Study program created successfully.');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'batch' => 'required|mimes:xls,xlsx|max:5120'
+        ]);
+
+        Excel::import(new StudyProgramsImport, $request->file('batch'));
+
+        return redirect()->back()->with('success', 'Batch file imported successfully.');
     }
 
     public function edit(StudyProgram $studyProgram)
