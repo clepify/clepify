@@ -17,7 +17,7 @@
 
                             <div class="mb-3">
                                 <label for="class_id" class="form-label">Class</label>
-                                <select class="form-select" id="class_id" name="class_id">
+                                <select class="form-select" id="class_id" name="class_id" required>
                                     <option selected hidden>Select Class</option>
                                     @foreach ($classes as $class)
                                         <option value="{{ $class->id }}">
@@ -30,27 +30,27 @@
 
                             <div class="mb-3">
                                 <label for="name" class="form-label">Student Name</label>
-                                <input type="text" class="form-control" id="name" name="name">
+                                <input type="text" class="form-control" id="name" name="name" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="username" class="form-label">NIM</label>
-                                <input type="text" class="form-control" id="username" name="username">
+                                <input type="text" class="form-control" id="username" name="username" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" id="email" name="email">
+                                <input type="text" class="form-control" id="email" name="email" required>
                             </div>
 
                             <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password">
+                                <label for="password" class="form-label">Password (min 8 characters)</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
                             </div>
 
                             <div class="mb-3">
                                 <label for="gender" class="form-label">Gender</label>
-                                <select class="form-control" id="gender" name="gender">
+                                <select class="form-control" id="gender" name="gender" required>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
                                 </select>
@@ -58,7 +58,7 @@
 
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Phone</label>
-                                <input type="text" class="form-control" id="phone" name="phone">
+                                <input type="text" class="form-control" id="phone" name="phone" required>
                             </div>
 
                             <button type="submit" class="btn btn-primary">Add Student</button>

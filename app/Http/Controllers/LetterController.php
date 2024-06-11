@@ -154,8 +154,6 @@ class LetterController extends Controller
                 'support_document' => $support_document_filename,
             ]);
 
-            $letter->lecturer()->sync($request->input('multi-select-lecturer'));
-
             DB::commit();
         } catch (\Exception $e) {
             DB::rollBack();

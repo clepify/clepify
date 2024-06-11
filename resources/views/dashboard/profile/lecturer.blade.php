@@ -1,4 +1,4 @@
-@role('admin')
+@role('lecturer')
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -24,7 +24,7 @@
                                 @enderror
                             </div>
                             <div class="form-group mb-3">
-                                <label for="username">Username</label>
+                                <label for="username">NIP</label>
                                 <input class="form-control" type="text" name="username" disabled required
                                     value="{{ auth()->user()->username }}">
                                 @error('username')

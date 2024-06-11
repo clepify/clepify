@@ -17,21 +17,8 @@ class UpdateLetterRequest extends FormRequest
             'date' => ['required', 'date'],
             'type' => ['required', 'string'],
             'category' => ['required', 'string'],
-            'multi-select-lecturer' => ['required', 'array'],
             'letter_document' => ['file', 'mimes:pdf', 'max:2048'],
             'support_document' => ['file', 'mimes:pdf', 'max:2048'],
-        ];
-    }
-
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
-     */
-    public function messages(): array
-    {
-        return [
-            'multi-select-lecturer.required' => 'The lecturer field is required.',
         ];
     }
 }

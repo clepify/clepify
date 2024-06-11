@@ -66,11 +66,13 @@
                                 </select>
                             </div>
                             <div class="col-12 mb-3">
-                                <label for="lecturer[]" class="form-label">Lecturer(s)</label>
-                                <select class="form-multi-select" id="lecturer[]" data-coreui-search="true"
-                                    data-coreui-select-all="false" multiple>
+                                <label for="lecturer" class="form-label">Lecturer</label>
+                                <select class="form-select" id="lecturer" name="lecturer" disabled>
                                     @foreach ($lecturers as $lecturer)
-                                        <option value="{{ $lecturer->id }}">{{ $lecturer->name }}</option>
+                                        <option value="{{ $lecturer->id }}"
+                                            {{ $letter->lecturer[0]->name === $lecturer->name ? 'selected' : '' }}>
+                                            {{ $lecturer->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>

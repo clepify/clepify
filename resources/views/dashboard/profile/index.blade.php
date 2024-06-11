@@ -10,5 +10,6 @@
 
 @section('content')
     @include('dashboard.profile.admin')
+    @include('dashboard.profile.lecturer')
     @include('dashboard.profile.student')
 @endsection
