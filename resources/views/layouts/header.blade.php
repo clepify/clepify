@@ -43,20 +43,20 @@
             </ul>
         @endrole
         <ul class="header-nav ms-auto">
-            <li class="nav-item dropdown">
+            {{-- <li class="nav-item dropdown">
                 <button class="btn btn-transparent" type="button" data-coreui-toggle="dropdown" aria-expanded="false">
                     <i class="bi-bell-fill fs-5"></i>
-                    {{-- <span class="position-absolute start-100 translate-middle badge rounded-pill bg-danger top-0 mt-2">
+                    <span class="position-absolute start-100 translate-middle badge rounded-pill bg-danger top-0 mt-2">
                         4
                         <span class="visually-hidden">unread messages</span>
-                    </span> --}}
+                    </span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <a class="dropdown-item" href="#">
                         This is notification message
                     </a>
                 </ul>
-            </li>
+            </li> --}}
             <li class="nav-item dropdown mt-1">
                 <button class="btn btn-transparent" type="button" data-coreui-toggle="dropdown" aria-expanded="false">
                     <span class="fw-semibold ms-1">{{ Auth::user()->name }}</span>
