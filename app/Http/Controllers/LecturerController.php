@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\LecturersImport;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class LecturerController extends Controller
 {
@@ -39,6 +41,21 @@ class LecturerController extends Controller
         ]);
 
         return redirect()->route('lecturers')->with('success', 'Lecturer created successfully.');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'batch' => 'required|mimes:xls,xlsx|max:5120'
+        ]);
+
+        try {
+            Excel::import(new LecturersImport, $request->file('batch'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Batch file imported successfully.');
     }
 
     public function edit(User $lecturer)

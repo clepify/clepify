@@ -7,31 +7,33 @@ use App\Models\StudentDetail;
 use App\Models\ClassModel;
 use App\Models\StudyProgram;
 use Illuminate\Http\Request;
+use App\Imports\StudentsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
-  public function index()
-  {
-    return view('students.index');
-  }
-
-  public function create()
+    public function index()
     {
-      $classes = ClassModel::all();
-      return view('students.create', compact('classes'));
+        return view('students.index');
+    }
+
+    public function create()
+    {
+        $classes = ClassModel::all();
+        return view('students.create', compact('classes'));
     }
 
     public function store(Request $request)
     {
-      $request->validate([      
-        'class_id' => 'required|exists:class,id',
-        'name' => 'required|string|max:255',
-        'username' => 'required|string|min:10',
-        'email' => 'required|email|max:255|unique:users,email',
-        'phone' => 'required|string|max:255',
-        'gender' => 'required|string',
-        'password' => 'required|string|min:8',
-      ]);
+        $request->validate([
+            'class_id' => 'required|exists:class,id',
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|min:10',
+            'email' => 'required|email|max:255|unique:users,email',
+            'phone' => 'required|string|max:255',
+            'gender' => 'required|string',
+            'password' => 'required|string|min:8',
+        ]);
 
         User::create([
             'name' => $request->name,
@@ -56,6 +58,21 @@ class StudentController extends Controller
         return redirect()->route('students')->with('success', 'Student created successfully.');
     }
 
+    public function import(Request $request)
+    {
+        $request->validate([
+            'batch' => 'required|mimes:xls,xlsx|max:5120'
+        ]);
+
+        try {
+            Excel::import(new StudentsImport, $request->file('batch'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Batch file imported successfully.');
+    }
+
     public function edit(User $student)
     {
         $classes = ClassModel::all();
@@ -65,22 +82,22 @@ class StudentController extends Controller
     public function update(Request $request, User $students)
     {
         $request->validate([
-          'name' => 'required|string|max:255',
-          'username' => 'required|string|min:18',
-          'email' => 'required|email|max:255|unique:users,email',
-          'phone' => 'required|string|max:255',
-          'gender' => 'required|string',
-          'password' => 'required|string|min:8',
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|min:18',
+            'email' => 'required|email|max:255|unique:users,email',
+            'phone' => 'required|string|max:255',
+            'gender' => 'required|string',
+            'password' => 'required|string|min:8',
         ]);
 
         $students->update([
-          'name' => $request->name,
-          'username' => $request->username,
-          'email' => $request->email,
-          'phone' => $request->phone,
-          'gender' => $request->gender,
-          'password' => bcrypt($request->password),
-          'role' => 'student',
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'password' => bcrypt($request->password),
+            'role' => 'student',
         ]);
 
         return redirect()->route('students')->with('success', 'Student updated successfully.');
@@ -94,4 +111,3 @@ class StudentController extends Controller
         return redirect()->route('students')->with('success', 'Student deleted successfully.');
     }
 }
-

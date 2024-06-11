@@ -52,6 +52,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/lecturers/{lecturer}/edit', [LecturerController::class, 'edit'])->name('lecturers.edit');
     Route::put('/lecturers/{lecturer}', [LecturerController::class, 'update'])->name('lecturers.update');
     Route::delete('/lecturers/{lecturer}', [LecturerController::class, 'destroy'])->name('lecturers.destroy');
+    Route::post('import-lecturers', [LecturerController::class, 'import'])->name('lecturers.import');
 
     Route::get('/students', [StudentController::class, 'index'])->name('students');
     Route::get('/students/create', [StudentController::class, 'create'])->name('students.create');
@@ -59,8 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->name('students.edit');
     Route::put('/students/{student}', [StudentController::class, 'update'])->name('students.update');
     Route::delete('/students/{student}', [StudentController::class, 'destroy'])->name('students.destroy');
-
-    Route::get('/study-programs', [StudyProgramController::class, 'index'])->name('study_programs');
+    Route::post('import-students', [StudentController::class, 'import'])->name('students.import');
 
     Route::get('/classes', [ClassController::class, 'index'])->name('classes.index');
     Route::get('/classes/create', [ClassController::class, 'create'])->name('classes.create');

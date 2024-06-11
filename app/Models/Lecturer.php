@@ -7,17 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Lecturer extends Model
 {
-  use HasFactory;
+    use HasFactory;
 
-  protected $table = 'users';
+    protected $table = 'users';
 
-  public function scopeLecturers($query)
-  {
-    return $query->where('role', 'lecturer');
-  }
+    protected $fillable = [
+        'name',
+        'username',
+        'email',
+        'password',
+        'role',
+        'gender',
+        'phone'
+    ];
 
-  public function letters()
-  {
-    return $this->belongsToMany(Letter::class, 'letter_lecturer', 'lecturer_id', 'letter_id');
-  }
+    public function scopeLecturers($query)
+    {
+        return $query->where('role', 'lecturer');
+    }
+
+    public function letters()
+    {
+        return $this->belongsToMany(Letter::class, 'letter_lecturer', 'lecturer_id', 'letter_id');
+    }
 }
