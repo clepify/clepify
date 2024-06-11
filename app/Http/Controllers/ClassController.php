@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ClassesImport;
 use Illuminate\Http\Request;
 use App\Models\ClassModel;
 use App\Models\StudyProgram;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClassController extends Controller
 {
@@ -35,6 +37,21 @@ class ClassController extends Controller
         ]);
 
         return redirect()->route('classes.index')->with('success', 'Class created successfully.');
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'batch' => 'required|mimes:xls,xlsx|max:5120'
+        ]);
+
+        try {
+            Excel::import(new ClassesImport, $request->file('batch'));
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', $th->getMessage());
+        }
+
+        return redirect()->back()->with('success', 'Batch file imported successfully.');
     }
 
     public function edit(ClassModel $class)

@@ -38,7 +38,6 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    {{-- tombol download template yang ada di public/documents/study_programs_template.xlsx --}}
                                     <div class="mb-3">
                                         <a href="{{ asset('documents/study_programs_template.xlsx') }}">
                                             Download Template

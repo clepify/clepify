@@ -68,7 +68,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/classes/{class}/edit', [ClassController::class, 'edit'])->name('classes.edit');
     Route::put('/classes/{class}', [ClassController::class, 'update'])->name('classes.update');
     Route::delete('/classes/{class}', [ClassController::class, 'destroy'])->name('classes.destroy');
-
+    Route::post('import-classes', [ClassController::class, 'import'])->name('classes.import');
 
     Route::get('/study_programs', [StudyProgramController::class, 'index'])->name('study_programs.index');
     Route::get('/study_programs/create', [StudyProgramController::class, 'create'])->name('study_programs.create');
